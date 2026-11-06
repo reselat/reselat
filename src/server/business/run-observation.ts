@@ -7,7 +7,7 @@ export function summarizeUsage(receipts:UsageReceipt[]=[]){
  for(const raw of receipts){const r=receipt.parse(raw);for(const key of ['input_tokens','output_tokens','estimated_usd_micros'] as const)totals[key]=amount.parse(totals[key]+r[key]);}
  return {source:receipts.length?'receipts':'placeholder',currency:'USD',calls:receipts.length,...totals};
 }
-const roles:Record<string,string>={leads_upsert:'prospecting',diligence_save_report:'diligence',outreach_draft_email:'outreach_draft',outreach_submit_approval:'outreach_draft'};
+const roles:Record<string,string>={leads_upsert:'prospecting',maps_search:'prospecting',maps_import:'prospecting',diligence_save_report:'diligence',outreach_draft_email:'outreach_draft',outreach_submit_approval:'outreach_draft'};
 function timestamp(value:unknown){if(!(typeof value==='string'||value instanceof Date))return null;const n=new Date(value).getTime();return Number.isFinite(n)?n:null;}
 export function buildRunObservation(run:Record<string,unknown>,steps:Record<string,unknown>[]){
  let previous=timestamp(run.started_at);

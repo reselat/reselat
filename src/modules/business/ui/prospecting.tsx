@@ -8,6 +8,7 @@ import {ProspectingPipeline,currentProspectingStep} from './prospecting-pipeline
 import {draftSchema,reviewSchema,evidenceSchema} from '../diligence-fusion';
 import {outreachDraftSchema,outreachReviewSchema} from '../outreach-fusion';
 import {parseLeadBatch} from '../lead-batch';
+import {mapsImportResultSchema,mapsRowSchema,mapsRowToLead,mapsSearchResponseSchema,isSyntheticMapsEmail,validMapsEmail} from '../maps-lead-adapter';
 const row=z.object({id:z.string(),name:z.string().optional(),email:z.string().optional(),source:z.string().optional(),place_id:z.string().nullable().optional(),maps_url:z.string().nullable().optional(),notes:z.string().nullable().optional(),created_at:z.string().optional(),lead_id:z.string().optional(),subject:z.string().optional(),body:z.string().optional(),summary:z.string().optional(),state:z.string().optional(),customer_id:z.string().nullable().optional(),sent_at:z.string().nullable().optional(),brevo_message_id:z.string().nullable().optional(),brevo_send_started_at:z.string().nullable().optional(),written_back_at:z.string().nullable().optional()});
 const list=z.object({items:z.array(row)});
 const auditList=z.object({items:z.array(z.object({id:z.string(),lead_id:z.string(),status:z.string(),draft:draftSchema,reviews:z.array(reviewSchema),evidence:z.array(evidenceSchema),fusion:z.object({summary:z.string(),agreement_ratio:z.number(),blockers:z.array(z.string())}).nullable(),human_decision:z.string().nullable(),report_id:z.string().nullable()}))});
@@ -44,6 +45,8 @@ function batchErrorMessage(message:string){
 }
 export function Prospecting(){
  const actor=useActor(),[leadId,setLeadId]=useState(''),[name,setName]=useState(''),[email,setEmail]=useState(''),[json,setJson]=useState(''),[summary,setSummary]=useState(''),[subject,setSubject]=useState(''),[body,setBody]=useState(''),[state,setState]=useState('pending'),[batch,setBatch]=useState<ImportResult[]>([]),[importing,setImporting]=useState(false);
+ const [mapsForm,setMapsForm]=useState({country:'',city:'',industry:'',maxResults:'20',language:'en',enrich:false});
+ const [mapsRows,setMapsRows]=useState<z.infer<typeof mapsRowSchema>[]>([]),[mapsSelected,setMapsSelected]=useState<number[]>([]),[mapsBusy,setMapsBusy]=useState(false),[mapsError,setMapsError]=useState(''),[mapsMessage,setMapsMessage]=useState('');
  const enabled=actor.role==='admin';
  const leads=useResource({view:'leads'},list,enabled),reports=useResource({view:'diligence'},list,enabled),drafts=useResource({view:'drafts'},list,enabled),queue=useResource({view:'approval-queue',state},list,enabled);
  const audits=useResource({view:'diligence-audits'},auditList,enabled);
@@ -64,6 +67,35 @@ export function Prospecting(){
   }catch(e){messages.push({ok:false,message:`导入失败：${e instanceof Error?e.message:String(e)}`});}
   finally{setBatch(messages);setImporting(false);refresh();}
  }
+ async function searchMapsLeads(){
+  setMapsBusy(true);setMapsError('');setMapsMessage('');
+  try{
+   const payload={country:mapsForm.country.trim(),industry:mapsForm.industry.trim(),...(mapsForm.city.trim()?{city:mapsForm.city.trim()}:{}),maxResults:Number(mapsForm.maxResults),...(mapsForm.language.trim()?{language:mapsForm.language.trim()}:{}),enrich:mapsForm.enrich};
+   const result=mapsSearchResponseSchema.parse(await sendData('maps_search',{requestId:crypto.randomUUID(),payload}));
+   setMapsRows(result.rows);setMapsSelected(result.rows.map((_,index)=>index));
+   if(!result.rows.length)setMapsError('没有找到结果，请调整国家、城市或行业关键词。');
+   if(result.note)setMapsMessage('地图服务提示：'+result.note);
+   if(result.enrichError)setMapsMessage(prev=>[prev,'官网补邮箱未完成，无邮箱结果仍可导入为线索。'].filter(Boolean).join(' '));
+  }catch(error){setMapsRows([]);setMapsSelected([]);setMapsError(error instanceof Error?error.message:'搜客失败，请稍后重试。');}
+  finally{setMapsBusy(false);}
+ }
+ async function importMapsLeads(){
+  if(!mapsSelected.length)return;
+  setMapsBusy(true);setMapsError('');setMapsMessage('');
+  const leads:ReturnType<typeof mapsRowToLead>[]=[];const errors:string[]=[];
+  mapsSelected.forEach(index=>{
+   const source=mapsRows[index];if(!source)return;
+   try{leads.push(mapsRowToLead(source));}
+   catch{errors.push(`第 ${index+1} 项缺少公司名称、邮箱或 placeId，未导入。`);}
+  });
+  if(!leads.length){setMapsError(errors.join(' ')||'没有可导入的搜客结果。');setMapsBusy(false);return;}
+  try{
+   const result=mapsImportResultSchema.parse(await sendData('maps_import',{requestId:crypto.randomUUID(),payload:{rows:leads}}));
+   setMapsMessage(`已导入 ${result.imported} 条线索（source=maps）${result.skipped?`，跳过 ${result.skipped} 条`:''}${result.enrichError?'；官网补邮箱未完成':''}。仅入库，不会发信或提交审批。`);
+   setMapsSelected([]);refresh();
+  }catch(error){setMapsError(error instanceof Error?error.message:'导入失败，请重试。');}
+  finally{setMapsBusy(false);}
+ }
  if(actor.role!=='admin')return <><Heading title="获客工作台" description="线索、背调、草稿与人工审批仅对管理员开放。"/><Panel><div className="shared-empty">仅管理员可访问获客工作台与人工审批；如需使用，请联系管理员。</div></Panel></>;
  const disabled=mutation.busy||mutation.uncertain||importing;
  const selectedLead=leads.data?.items.find(l=>l.id===leadId);
@@ -74,6 +106,39 @@ export function Prospecting(){
  <MutationState state={mutation}/>
  <div className="prospecting-workbench">
  <div id="prospecting-discover" tabIndex={-1} className="prospecting-section">
+ <Panel title="地图搜客 · aiclient">
+  <p className="shared-note">数据来自地图搜客工具（aiclient），按国家、城市、行业检索公司；勾选后导入为 source=maps 线索。仅写入线索库，不会发信或提交审批。</p>
+  <form onSubmit={e=>{e.preventDefault();if(!mapsBusy)searchMapsLeads();}}>
+   <fieldset className="prospecting-fieldset" disabled={disabled||mapsBusy}>
+    <div className="form-grid">
+     <label>国家 *<input value={mapsForm.country} onChange={e=>setMapsForm(prev=>({...prev,country:e.target.value}))} placeholder="例如 Germany" required maxLength={100}/></label>
+     <label>城市<input value={mapsForm.city} onChange={e=>setMapsForm(prev=>({...prev,city:e.target.value}))} placeholder="可留空" maxLength={100}/></label>
+     <label>行业 / 关键词 *<input value={mapsForm.industry} onChange={e=>setMapsForm(prev=>({...prev,industry:e.target.value}))} placeholder="例如 industrial valves" required maxLength={100}/></label>
+     <label>返回数量<select value={mapsForm.maxResults} onChange={e=>setMapsForm(prev=>({...prev,maxResults:e.target.value}))}>{['20','40','60'].map(value=><option key={value} value={value}>{value} 条</option>)}</select></label>
+     <label>语言<input value={mapsForm.language} onChange={e=>setMapsForm(prev=>({...prev,language:e.target.value}))} placeholder="en" maxLength={8} pattern="[A-Za-z]{2,3}(-[A-Za-z]{2,4})?" title="两位或三位语言代码，例如 en、de、zh-CN"/></label>
+     <label>官网补邮箱<select value={mapsForm.enrich?'yes':'no'} onChange={e=>setMapsForm(prev=>({...prev,enrich:e.target.value==='yes'}))}><option value="no">否</option><option value="yes">是（较慢）</option></select></label>
+    </div>
+    <div className="form-actions">
+     <button type="submit" className="button primary" disabled={disabled||mapsBusy}>{mapsBusy?'搜客中…':'开始搜客'}</button>
+     {!!mapsRows.length&&<button type="button" className="button primary" disabled={disabled||mapsBusy||!mapsSelected.length} onClick={importMapsLeads}>导入选中 {mapsSelected.length} 条</button>}
+    </div>
+   </fieldset>
+  </form>
+  {mapsError&&<p className="shared-feedback error" role="alert">{mapsError}</p>}
+  {mapsMessage&&<p className="shared-feedback success" role="status">{mapsMessage}</p>}
+  {!!mapsRows.length&&<div className="shared-table-wrap"><table>
+   <thead><tr><th><input type="checkbox" aria-label="全选搜客结果" checked={mapsSelected.length===mapsRows.length} onChange={e=>setMapsSelected(e.target.checked?mapsRows.map((_,index)=>index):[])}/></th><th>公司</th><th>国家 / 城市</th><th>行业</th><th>联系方式</th><th>评分</th><th>地图</th></tr></thead>
+   <tbody>{mapsRows.map((result,index)=>{const mail=validMapsEmail(result.email);return <tr key={(result.placeId??result.name??'maps')+index}>
+    <td><input type="checkbox" aria-label={`选择 ${result.name??'搜客结果'}`} checked={mapsSelected.includes(index)} onChange={e=>setMapsSelected(prev=>e.target.checked?[...new Set([...prev,index])]:prev.filter(value=>value!==index))}/></td>
+    <td><strong>{result.name||'未命名公司'}</strong>{result.address&&<div className="shared-note">{result.address}</div>}</td>
+    <td>{result.country||'—'}{result.city?` / ${result.city}`:''}</td>
+    <td>{result.industry||'—'}</td>
+    <td>{mail?<>{mail}{result.emailSource&&<div className="shared-note">来源：{result.emailSource}</div>}</>:<><span className="shared-badge pending">无邮箱</span><div className="shared-note">导入时生成 placeId 占位，不会发信</div></>}{result.phone&&<div className="shared-note">{result.phone}</div>}</td>
+    <td>{result.rating!==undefined&&result.rating!==null?String(result.rating):'—'}{result.reviews!==undefined&&result.reviews!==null?<small>（{String(result.reviews)}）</small>:null}</td>
+    <td>{result.mapsUrl?<a href={result.mapsUrl} target="_blank" rel="noreferrer">地图</a>:'—'}</td>
+   </tr>;})}</tbody>
+  </table></div>}
+ </Panel>
  <Panel title="线索">
   <div className="shared-toolbar prospecting-toolbar">
    <p className="shared-note">先登记线索，或粘贴 JSON 数组批量导入；同一邮箱会合并保存。列表显示最近 500 条。</p>
@@ -85,7 +150,7 @@ export function Prospecting(){
    <thead><tr><th>姓名</th><th>邮箱</th><th>来源</th><th>创建时间</th><th>操作</th></tr></thead>
    <tbody>{leads.data.items.map(l=><tr key={l.id} className={'prospecting-lead-row'+(leadId===l.id?' selected':'')} onClick={()=>selectLead(l.id)}>
     <td><strong>{l.name||'未填写姓名'}</strong>{leadId===l.id&&<span className="prospecting-selected-tag">已选择</span>}</td>
-    <td>{l.email||'—'}</td>
+    <td>{isSyntheticMapsEmail(l.email)?<><span className="shared-badge pending">无邮箱</span><div className="shared-note">{l.email}</div></>:l.email||'—'}</td>
     <td>{sourceLabel(l.source)}{l.place_id && <div>{l.place_id}</div>}{l.maps_url && <div>{l.maps_url}</div>}{l.notes && <div>{l.notes}</div>}</td>
     <td>{when(l.created_at)}</td>
     <td><button type="button" className="button" onClick={e=>{e.stopPropagation();selectLead(l.id);}}>{leadId===l.id?'已选中':'选择'}</button></td>
@@ -105,7 +170,7 @@ export function Prospecting(){
     </form>
    </section>
    <section className="prospecting-subsection">
-    <h3>JSON 批量导入（含 Maps）</h3><p>Maps 候选请设置 source 为 maps，可附 placeId、mapsUrl、notes、address、phone；邮箱必填。仅导入已有 JSON，不调用地图服务。</p>
+    <h3>JSON 批量导入（含 Maps）</h3><p>Maps 候选请设置 source 为 maps，可附 placeId、mapsUrl、notes、address、phone；无邮箱时请提供 placeId，将生成 noemail+placeId@maps.import.local 占位，不编造真实邮箱。</p>
     <form onSubmit={e=>{e.preventDefault();if(json.trim())importJson();}}>
      <fieldset className="prospecting-fieldset" disabled={disabled}>
       <div className="form-grid">
@@ -131,7 +196,7 @@ export function Prospecting(){
   {selectedLead&&<>
    <dl className="shared-kv prospecting-lead-summary">
     <div><dt>当前线索</dt><dd>{selectedLead.name||'未填写姓名'}</dd></div>
-    <div><dt>邮箱</dt><dd>{selectedLead.email||'—'}</dd></div>
+    <div><dt>邮箱</dt><dd>{isSyntheticMapsEmail(selectedLead.email)?<>无邮箱<div className="shared-note">{selectedLead.email}</div></>:selectedLead.email||'—'}</dd></div>
     <div><dt>来源</dt><dd>{sourceLabel(selectedLead.source)}</dd></div>
     <div><dt>创建时间</dt><dd>{when(selectedLead.created_at)}</dd></div>
    </dl>
