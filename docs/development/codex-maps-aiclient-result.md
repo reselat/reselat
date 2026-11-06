@@ -130,3 +130,7 @@
 - 未部署、未 push、未改 aiclient、未改 Brevo 人点发流程。
 - 未做真实线上 rehearsal；建议上线前在获客页做一次只读搜索 + 导入 1 条测试线索，再核对 `leads.source='maps'`。
 - 未单独提供 `maps_enrich` 命令；enrich 作为 search/import 的可选步骤，失败不阻断入库。
+
+## 本地 commit
+
+`4808b6db40e4f9a308af1fe9d1145ac0605d59a2`（2026-11-06 14:49 Asia/Shanghai）
