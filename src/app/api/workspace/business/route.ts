@@ -7,6 +7,7 @@ import {runGet} from '@/server/business/agent-reads';
 import {orchestrationCommand,confirmPlan} from '@/server/business/orchestration';
 import {outreachWriteback} from '@/server/business/outreach-writeback';
 import {prospectList,prospectCommand,approvalList,humanApprovalCommand} from '@/server/business/prospecting';
+import {mapsSearchCommand,mapsImportCommand} from '@/server/business/maps';
 import {agentList,aiUsageLedger} from '@/server/business/agent-reads';
 import {getCustomer} from '@/server/business/records';
 import {listModelProfiles,saveModel,archiveModel} from '@/server/ai/profiles';
@@ -89,7 +90,8 @@ export async function POST(request:Request){try{const actor=await actorFor(reque
  if(isAgent){
  const businessActions=['leads_upsert','diligence_save_report','outreach_draft_email','outreach_submit_approval'];
  const hostActions=['outreach_followup_scan','outreach_audit_submit','outreach_audit_record','outreach_audit_fuse','diligence_audit_submit','diligence_audit_record','diligence_audit_fuse','run_claim','pipeline_advance','run_cancel','run_requeue'];
- if(businessActions.includes(body.action))await assertAgentWrite(actor,roleCode,body.action);
+ if(body.action==='maps_search'||body.action==='maps_import')await assertAgentWrite(actor,roleCode,'leads_upsert');
+ else if(businessActions.includes(body.action))await assertAgentWrite(actor,roleCode,body.action);
  else if(!hostActions.includes(body.action))throw Error('INVALID_INPUT');
  }
  switch(body.action){
@@ -111,6 +113,8 @@ export async function POST(request:Request){try{const actor=await actorFor(reque
   case 'cost.plan':result=await saveCostPlan(actor,body.input);break;
   case 'plan_upsert':case 'pipeline_upsert':case 'run_enqueue':case 'run_claim':case 'pipeline_advance':case 'run_cancel':case 'run_resume':case 'run_requeue':result=await orchestrationCommand(actor,body.action,body.input);break;
   case 'leads_upsert':case 'diligence_save_report':case 'outreach_draft_email':case 'outreach_submit_approval':result=await prospectCommand(actor,body.action,body.input,isAgent?roleCode:undefined);break;
+  case 'maps_search':result=await mapsSearchCommand(actor,body.input);break;
+  case 'maps_import':result=await mapsImportCommand(actor,body.input,isAgent?roleCode:undefined);break;
   case 'risk.read':result=await acknowledgeRisk(actor,body.input);break;
   case 'risk.ai':result=await analyseOrderRisk(actor,body.input);break;
   case 'risk.ai.reconcile':result=await reconcileRiskAi(actor,body.input);break;

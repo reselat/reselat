@@ -5,6 +5,7 @@ import {checkAdmin} from '@/server/auth/employee';
 import type {BusinessActor} from './access';
 import {runBusinessCommand,audit} from './commands';
 import {readBusiness} from './order-data';
+import {upsertLead} from './lead-upsert';
 // @ts-expect-error Shared strict schemas for the Node MCP bridge.
 import {payloads,commandSchema} from '../../../scripts/agents/p1-schemas.mjs';
 
@@ -14,9 +15,9 @@ export async function prospectCommand(actor:BusinessActor,kind:string,raw:unknow
  const input=commandSchema(kind).parse(raw);
  return runBusinessCommand(actor,{...input,kind},async tx=>{
  if(roleCode!==undefined)await assertAgentWrite(actor,roleCode,kind,tx);
- const p=input.payload;let id=randomUUID();
+ const p=input.payload;let id:string=randomUUID();
  if(kind==='leads_upsert'){
- const rows=await tx`insert into trade_business.leads(company_id,id,name,email,source,place_id,maps_url,notes,address,phone) values(${actor.companyId},${id},${p.name},${p.email},${p.source},${p.placeId??null},${p.mapsUrl??null},${p.notes??null},${p.address??null},${p.phone??null}) on conflict(company_id,email) do update set name=excluded.name,source=excluded.source,place_id=coalesce(excluded.place_id,leads.place_id),maps_url=coalesce(excluded.maps_url,leads.maps_url),notes=coalesce(excluded.notes,leads.notes),address=coalesce(excluded.address,leads.address),phone=coalesce(excluded.phone,leads.phone) returning id`;id=rows[0].id;
+ id=await upsertLead(tx,actor.companyId,p);
  }else if(kind==='outreach_submit_approval'){
  const rows=await tx`update trade_business.outreach_drafts set state='pending' where company_id=${actor.companyId} and id=${p.draftId} and state in ('draft','pending') returning id`;
  if(!rows.length)throw Error('NOT_FOUND');
