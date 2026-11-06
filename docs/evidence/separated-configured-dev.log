@@ -1,0 +1,18 @@
+
+> trade-workstation@0.1.0 dev
+> next dev --hostname 127.0.0.1
+
+▲ Next.js 16.4.2 (Turbopack)
+- Local:         http://127.0.0.1:3000
+- Network:       http://127.0.0.1:3000
+- Environments: .env.local
+✓ Ready in 341ms
+✓ Running next.config.ts took 15ms
+
+ GET /admin 200 in 9.7s (next.js: 1344ms, proxy.ts: 2.0s, application-code: 6.3s)
+ GET /login 200 in 14ms (next.js: 2ms, application-code: 12ms)
+ GET /api/admin/employees 401 in 5ms (next.js: 1.1ms, proxy.ts: 1.3ms, application-code: 3ms)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 12.9s (next.js: 171ms, proxy.ts: 866ms, application-code: 11.8s)
+  Reload env: .env.local
+ GET /admin 200 in 7.8s (next.js: 680ms, proxy.ts: 1492ms, application-code: 5.6s)
+[?25h

@@ -1,0 +1,67 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/demo
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/demo/customers.test.ts (4 tests | 4 failed) 2ms
+   × rejects blank companies and impossible followup dates 1ms
+   × accepts a valid draft and trims text 0ms
+   × finds a company with case insensitive search 0ms
+   × requires actual followup notes 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/demo/customers.test.ts > rejects blank companies and impossible followup dates
+Error: NOT_IMPLEMENTED
+ ❯ validateCustomerDraft src/modules/demo/customer-rules.ts:1:95
+      1| export function validateCustomerDraft(value: unknown): { success: fals…
+       |                                                                                               ^
+      2| export function filterCustomers<T extends {name:string;country:string;…
+      3| export function validateFollowup(value: unknown): {success:false} {voi…
+ ❯ tests/demo/customers.test.ts:4:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/demo/customers.test.ts > accepts a valid draft and trims text
+Error: NOT_IMPLEMENTED
+ ❯ validateCustomerDraft src/modules/demo/customer-rules.ts:1:95
+      1| export function validateCustomerDraft(value: unknown): { success: fals…
+       |                                                                                               ^
+      2| export function filterCustomers<T extends {name:string;country:string;…
+      3| export function validateFollowup(value: unknown): {success:false} {voi…
+ ❯ tests/demo/customers.test.ts:8:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/demo/customers.test.ts > finds a company with case insensitive search
+Error: NOT_IMPLEMENTED
+ ❯ filterCustomers src/modules/demo/customer-rules.ts:2:141
+      1| export function validateCustomerDraft(value: unknown): { success: fals…
+      2| export function filterCustomers<T extends {name:string;country:string;…
+       |                                                                                                                                             ^
+      3| export function validateFollowup(value: unknown): {success:false} {voi…
+      4|
+ ❯ tests/demo/customers.test.ts:13:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/demo/customers.test.ts > requires actual followup notes
+Error: NOT_IMPLEMENTED
+ ❯ validateFollowup src/modules/demo/customer-rules.ts:3:85
+      1| export function validateCustomerDraft(value: unknown): { success: fals…
+      2| export function filterCustomers<T extends {name:string;country:string;…
+      3| export function validateFollowup(value: unknown): {success:false} {voi…
+       |                                                                                     ^
+      4|
+ ❯ tests/demo/customers.test.ts:15:49
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  14:18:59
+   Duration  70ms (transform 53%, import 23%, tests 14%, worker 10%)
+

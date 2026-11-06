@@ -1,0 +1,13 @@
+
+> trade-workstation@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  13 passed (13)
+      Tests  64 passed (64)
+   Start at  15:20:37
+   Duration  524ms (import 57%, tests 37%, transform 5%, worker 2%)
+

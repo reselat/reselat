@@ -1,0 +1,1 @@
+export function OrderTypeTag({value}:{value:unknown}){const sample=value==='sample';return <span className={'order-type-tag '+(sample?'sample':'normal')}><i aria-hidden="true"/>{sample?'样品单':'正常订单'}</span>;}

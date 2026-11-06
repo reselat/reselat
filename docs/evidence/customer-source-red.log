@@ -1,0 +1,47 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace/customer-source.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/workspace/customer-source.test.ts (2 tests | 2 failed) 5ms
+   × accepts the supported customer acquisition channels and preserves them across storage 4ms
+   × rejects invalid channel values and keeps historical customers readable without a source 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspace/customer-source.test.ts > accepts the supported customer acquisition channels and preserves them across storage
+AssertionError: expected undefined to be 'ads' // Object.is equality
+
+- Expected:
+"ads"
+
++ Received:
+undefined
+
+ ❯ tests/workspace/customer-source.test.ts:5:354
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/workspace/customer-source.test.ts > rejects invalid channel values and keeps historical customers readable without a source
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/workspace/customer-source.test.ts:6:216
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  07:00:02
+   Duration  124ms (import 76%, transform 15%, tests 6%, worker 2%)
+

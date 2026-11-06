@@ -1,0 +1,12 @@
+import { customsSchema,workspaceSchema,type Product,type CustomsInfo,type OrderLine,type SalesOrder,type Workspace } from './model';
+export const customsLabels=[['hsCode','中国出口海关商品编码（10位）'],['declarationName','申报品名'],['declarationElements','申报要素（材质、用途、品牌型号等）'],['taxCommodityCode','退税商品代码（按税务文库核实）'],['refundRate','人工核实退税率 %（含0）'],['classificationSource','归类及税率核验依据 / 文库版本'],['classificationDate','核验日期']] as const;
+export function customsReadiness(lines:OrderLine[]){const issues=lines.flatMap(l=>{const v=customsSchema.parse(l);const missing=[];if(!/^\d{10}$/.test(v.hsCode))missing.push('10位海关编码');if(v.classificationStatus!=='reviewed')missing.push('归类复核');if(!v.declarationName.trim()||!v.declarationElements.trim())missing.push('申报品名/要素');if(!v.classificationSource.trim()||!v.classificationDate)missing.push('核验依据/日期');if(!v.taxCommodityCode||v.refundRate==='')missing.push('退税代码/税率确认');return missing.length?[{lineId:l.id,sku:l.sku,message:missing.join('、')}]:[];});return {ready:issues.length===0,issues};}
+export function applyOrderCustoms(state:Workspace,orderId:string,lineId:string,input:CustomsInfo,id:string):Workspace{
+ const after=customsSchema.parse(input);if(after.classificationStatus!=='reviewed')throw new Error('订单归类变更必须先复核');if(state.customsChanges.some(c=>c.id===id))throw new Error('变更标识重复');
+ const next=structuredClone(state),order=next.orders.find(o=>o.id===orderId),line=order?.lines.find(l=>l.id===lineId);if(!line)throw new Error('订单商品不存在');
+ const before=customsSchema.parse(line);Object.assign(line,after);next.customsChanges.push({id,orderId,lineId,createdAt:new Date().toISOString(),before,after});next.revision++;return workspaceSchema.parse(next);
+}
+function cell(v:string){return '"'+(/^[\s]*[=+\-@]/.test(v)?"'"+v:v).replaceAll('"','""')+'"';}
+export function exportCustomsCsv(order:SalesOrder){if(!customsReadiness(order.lines).ready)throw new Error('请先补齐并复核归类与退税字段');return '\ufeff'+[['订单','SKU','英文描述','申报品名','海关编码','申报要素','数量','单位','币种','金额最小单位','退税商品代码','退税率%','核验依据','核验日期'],...order.lines.map(l=>[order.no,l.sku,l.description,l.declarationName,l.hsCode,l.declarationElements,l.quantity,l.unit,order.currency,l.amountMinor,l.taxCommodityCode,l.refundRate,l.classificationSource,l.classificationDate])].map(r=>r.map(cell).join(',')).join('\r\n');}
+
+export function newProductDraft(supplierId:string):Product{return {...customsSchema.parse({hsCode:''}),id:'',sku:'',nameZh:'',nameEn:'',spec:'',unit:'PCS',origin:'',unitPrice:'0',supplierId,costPrice:'0',purchaseCurrency:'CNY'};}

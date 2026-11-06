@@ -1,0 +1,36 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/business/access.test.ts (0 test)
+ ❯ tests/business/commands.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/business/access.test.ts [ tests/business/access.test.ts ]
+Error: Cannot find module '../../src/server/business/access' imported from /Volumes/数据/开发项目/外贸工作站/tests/business/access.test.ts
+ ❯ tests/business/access.test.ts:2:1
+      1| import {it,expect} from 'vitest';
+      2| import {assertScope,projectFields} from '../../src/server/business/acc…
+       | ^
+      3| const sales={id:'sales',companyId:'c',role:'sales' as const,enabled:tr…
+      4| it('distinguishes ownership, read-only sharing, operations assignment …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/business/commands.test.ts [ tests/business/commands.test.ts ]
+Error: Cannot find module '../../src/server/business/command-values' imported from /Volumes/数据/开发项目/外贸工作站/tests/business/commands.test.ts
+ ❯ tests/business/commands.test.ts:2:1
+      1| import {it,expect} from 'vitest';
+      2| import {commandFingerprint,assertPrecision} from '../../src/server/bus…
+       | ^
+      3| it('canonicalizes command fingerprints without storing command content…
+      4|  expect(commandFingerprint({a:1,b:{c:'x'}})).toBe(commandFingerprint({…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  14:47:47
+   Duration  59ms (worker 96%, environment 4%)
+

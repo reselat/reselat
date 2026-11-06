@@ -1,0 +1,24 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/auth-live.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/auth-live.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/auth-live.test.ts [ tests/auth-live.test.ts ]
+Error: Cannot find package '@/server/auth/employee' imported from /Volumes/数据/开发项目/外贸工作站/tests/auth-live.test.ts
+ ❯ tests/auth-live.test.ts:2:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  07:14:06
+   Duration  72ms (worker 98%, environment 2%)
+

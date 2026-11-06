@@ -1,0 +1,11 @@
+
+> trade-workstation@0.1.0 lint
+> eslint .
+
+
+/Volumes/数据/开发项目/外贸工作站/scripts/codex-progress-monitor.mjs
+  130:31  warning  'sizeNow' is defined but never used                 @typescript-eslint/no-unused-vars
+  260:9   warning  'staleSessions' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 2 problems (0 errors, 2 warnings)
+

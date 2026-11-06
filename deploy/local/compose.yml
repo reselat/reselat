@@ -1,0 +1,93 @@
+name: siliantai
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: deploy/local/Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${APP_ORIGIN:?HTTPS origin required}
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:?Required}
+    environment:
+      LOGIN_RATE_LIMIT_SECRET: ${LOGIN_RATE_LIMIT_SECRET:?Required}
+      LOGIN_TRUST_PROXY: caddy
+      AI_MODELS_ENABLED: ${AI_MODELS_ENABLED:-false}
+      AI_CREDENTIALS_ENCRYPTION_KEY: ${AI_CREDENTIALS_ENCRYPTION_KEY:-}
+      AI_DAILY_BUDGET_USD_MICROS: ${AI_DAILY_BUDGET_USD_MICROS:-0}
+      AI_DAILY_CALL_LIMIT: ${AI_DAILY_CALL_LIMIT:-0}
+      DEEPSEEK_RISK_ENABLED: ${DEEPSEEK_RISK_ENABLED:-false}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-}
+      DEEPSEEK_DAILY_BUDGET_USD_MICROS: ${DEEPSEEK_DAILY_BUDGET_USD_MICROS:-0}
+      DEEPSEEK_DAILY_CALL_LIMIT: ${DEEPSEEK_DAILY_CALL_LIMIT:-0}
+      DEEPSEEK_INPUT_USD_MICROS_PER_MILLION: ${DEEPSEEK_INPUT_USD_MICROS_PER_MILLION:-0}
+      DEEPSEEK_OUTPUT_USD_MICROS_PER_MILLION: ${DEEPSEEK_OUTPUT_USD_MICROS_PER_MILLION:-0}
+      DEEPSEEK_PRICES_VERIFIED_AT: ${DEEPSEEK_PRICES_VERIFIED_AT:-}
+      APP_ORIGIN: ${APP_ORIGIN:?Required}
+      TRADE_COMPANY_ID: ${TRADE_COMPANY_ID:?Required}
+      NEXT_PUBLIC_SUPABASE_URL: ${APP_ORIGIN:?Required}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:?Required}
+      IDENTITY_SERVICE_URL: ${IDENTITY_SERVICE_URL:?Required}
+      IDENTITY_PROJECT_REF: ${IDENTITY_PROJECT_REF:?Required}
+      IDENTITY_DATABASE_HOST: ${IDENTITY_DATABASE_HOST:?Required}
+      IDENTITY_DATABASE_TLS: ${IDENTITY_DATABASE_TLS:-verify}
+      IDENTITY_DATABASE_CA_CERT: ${IDENTITY_DATABASE_CA_CERT:-}
+      IDENTITY_DATABASE_URL: ${IDENTITY_DATABASE_URL:?Required}
+      SUPABASE_AUTH_ADMIN_KEY: ${SUPABASE_AUTH_ADMIN_KEY:?Required}
+      BUSINESS_PROJECT_REF: ${BUSINESS_PROJECT_REF:?Required}
+      BUSINESS_DATABASE_HOST: business-db
+      BUSINESS_DATABASE_TLS: disable
+      BUSINESS_DATABASE_URL: ${BUSINESS_DATABASE_URL:?Required}
+      DEPLOYMENT_TARGET: self-hosted
+      FILE_STORAGE_DRIVER: filesystem
+      PRIVATE_FILES_ROOT: /data/private-files
+    volumes:
+      - private-files:/data/private-files
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks: [default, identity]
+    depends_on:
+      business-db:
+        condition: service_healthy
+    security_opt: [no-new-privileges:true]
+  business-db:
+    image: postgres:17.6-bookworm
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ${BUSINESS_POSTGRES_PASSWORD:?Required}
+    volumes:
+      - business-db:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  gateway:
+    image: caddy:2.10.2-alpine
+    environment:
+      SITE_HOST: ${SITE_HOST:?Required}
+    volumes:
+      - ${CADDY_CONFIG:-./Caddyfile.lan}:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    ports:
+      - '${HTTP_BIND:-0.0.0.0}:80:80'
+      - '${HTTP_BIND:-0.0.0.0}:443:443'
+    depends_on:
+      app:
+        condition: service_healthy
+    networks: [default, identity]
+    restart: unless-stopped
+volumes:
+  private-files:
+  business-db:
+  caddy-data:
+  caddy-config:
+networks:
+  identity:
+    external: true
+    name: ${IDENTITY_DOCKER_NETWORK:?Set official identity Compose network name}

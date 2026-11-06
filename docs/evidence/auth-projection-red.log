@@ -1,0 +1,32 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/shared-records.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/shared-records.test.ts (3 tests | 1 failed) 3ms
+   × projects customer fields from a whitelist instead of leaking unexpected stored columns 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/shared-records.test.ts > projects customer fields from a whitelist instead of leaking unexpected stored columns
+AssertionError: expected { Object (name, costPrice, ...) } to not have property "bankAccount"
+
+- Expected:
+undefined
+
++ Received:
+"TEST ONLY"
+
+ ❯ tests/shared-records.test.ts:7:163
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  07:20:15
+   Duration  73ms (transform 60%, import 18%, tests 13%, worker 8%)
+

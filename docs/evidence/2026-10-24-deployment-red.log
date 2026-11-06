@@ -1,0 +1,70 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/deployment-database.test.ts (2 tests | 1 failed) 2ms
+   × accepts transaction poolers for each independent runtime role 1ms
+ ❯ tests/business/http.test.ts (3 tests | 2 failed) 11ms
+   × reports invalid JSON safely as invalid input 10ms
+   × limits UTF-8 request bytes rather than JavaScript string length 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/deployment-database.test.ts > accepts transaction poolers for each independent runtime role
+Error: NOT_CONFIGURED
+ ❯ validateDatabaseTarget src/server/db/config.ts:14:15
+     12|   if(!['postgres:','postgresql:'].includes(url.protocol)||(!direct&&!p…
+     13|   return raw;
+     14|  }catch{throw new IdentityError('NOT_CONFIGURED');}
+       |               ^
+     15| }
+     16| export function readDatabaseTarget(purpose:DatabasePurpose,env:Record<…
+ ❯ tests/deployment-database.test.ts:8:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/business/http.test.ts > reports invalid JSON safely as invalid input
+AssertionError: expected { code: 'REQUEST_FAILED' } to match object { code: 'INVALID_INPUT' }
+
+- Expected
++ Received
+
+  {
+-   "code": "INVALID_INPUT",
++   "code": "REQUEST_FAILED",
+  }
+
+ ❯ tests/business/http.test.ts:8:115
+      6| it('reports invalid JSON safely as invalid input',async()=>{
+      7|  try{await bodyOf(new Request('https://example.test',{method:'POST',bo…
+      8|  catch(error){const response=businessError(error);expect(response.stat…
+       |                                                                                                                   ^
+      9| });
+     10| it('limits UTF-8 request bytes rather than JavaScript string length',a…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/business/http.test.ts > limits UTF-8 request bytes rather than JavaScript string length
+AssertionError: expected 400 to be 413 // Object.is equality
+
+- Expected
++ Received
+
+- 413
++ 400
+
+ ❯ tests/business/http.test.ts:13:75
+     11|  const body=JSON.stringify({name:'中'.repeat(40000)});
+     12|  try{await bodyOf(new Request('https://example.test',{method:'POST',bo…
+     13|  catch(error){const response=businessError(error);expect(response.stat…
+       |                                                                           ^
+     14| });
+     15| it('accepts bounded streamed JSON without a content-length header',asy…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 2 passed (5)
+   Start at  23:41:37
+   Duration  90ms (import 49%, transform 30%, tests 18%, worker 3%)
+

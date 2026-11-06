@@ -1,0 +1,24 @@
+trade-workstation@0.1.0 /Volumes/数据/开发项目/外贸工作站
+├─┬ eslint-config-next@16.4.2
+│ ├─┬ eslint-import-resolver-typescript@3.10.1
+│ │ └── eslint@10.13.0 deduped
+│ ├─┬ eslint-plugin-import@2.32.0
+│ │ └── eslint@10.13.0 deduped invalid: "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-import
+│ ├─┬ eslint-plugin-jsx-a11y@6.10.2
+│ │ └── eslint@10.13.0 deduped invalid: "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-import, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-jsx-a11y
+│ ├─┬ eslint-plugin-react-hooks@7.1.1
+│ │ └── eslint@10.13.0 deduped invalid: "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-import, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-jsx-a11y
+│ ├─┬ eslint-plugin-react@7.37.5
+│ │ └── eslint@10.13.0 deduped invalid: "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-import, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-jsx-a11y, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7" from node_modules/eslint-config-next/node_modules/eslint-plugin-react
+│ ├── eslint@10.13.0 deduped
+│ └─┬ typescript-eslint@8.72.0
+│   ├── @typescript-eslint/parser@8.72.0
+│   └── eslint@10.13.0 deduped invalid: "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-import, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-jsx-a11y, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7" from node_modules/eslint-config-next/node_modules/eslint-plugin-react
+└─┬ eslint@10.13.0
+  └─┬ @eslint-community/eslint-utils@4.10.1
+    └── eslint@10.13.0 deduped invalid: "^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-import, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9" from node_modules/eslint-config-next/node_modules/eslint-plugin-jsx-a11y, "^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7" from node_modules/eslint-config-next/node_modules/eslint-plugin-react
+
+npm error code ELSPROBLEMS
+npm error invalid: eslint@10.13.0 /Volumes/数据/开发项目/外贸工作站/node_modules/eslint
+npm error Log files were not written due to an error writing to the directory: /Users/oliver/.npm/_logs
+npm error You can rerun the command with `--loglevel=verbose` to see the logs in your terminal

@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+.env*
+.vercel
+artifacts
+coverage
+*.tsbuildinfo
+deploy/local/secrets
+deploy/local/backups
+
+.local-test-data/

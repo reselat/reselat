@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+export function patchStandardFontRequires(source){let count=0;const code=source.replace(/\b[\w$]+\((["'])#standard-fonts\/([\w-]+)\1\)/g,(_,q,name)=>{count++;return `globalThis.__RESELAT_PDFKIT_STD_FONTS__["${name}"]`;});return {code,count};}
+export function extractYogaWasm(source){const match=source.match(/base64,(AGFzbQ[A-Za-z0-9+/=]+)["']/);if(!match)throw Error('Yoga base64 not found');const bytes=Buffer.from(match[1],'base64');if(bytes.subarray(0,4).toString('hex')!=='0061736d')throw Error('Invalid wasm magic');return bytes;}
+async function files(dir){const result=[];for(const entry of await fs.readdir(dir,{withFileTypes:true})){const name=path.join(dir,entry.name);if(entry.isDirectory())result.push(...await files(name));else if(/\.m?js$/.test(name))result.push(name);}return result;}
+// OpenNext emits one bundled copy and one copied pdfkit module: 14 loaders each.
+const EXPECTED_STANDARD_FONT_REQUIRES = 28;
+// Must match YOGA_WASM_BYTE_LENGTH in cloudflare/worker.ts (the instantiate shim keys on it).
+export const YOGA_WASM_BYTE_LENGTH = 71736;
+export async function main(){const pending=[];let total=0;for(const file of await files('.open-next/server-functions')){const result=patchStandardFontRequires(await fs.readFile(file,'utf8'));total+=result.count;if(result.count)pending.push([file,result.code]);}if(total!==EXPECTED_STANDARD_FONT_REQUIRES)throw Error(`Expected exactly 28 standard font requires, found ${total}`);const version=JSON.parse(await fs.readFile('node_modules/yoga-layout/package.json','utf8')).version;if(version!=='3.2.1')throw Error(`Unexpected Yoga version ${version}`);const wasm=extractYogaWasm(await fs.readFile('node_modules/yoga-layout/dist/binaries/yoga-wasm-base64-esm.js','utf8'));if(wasm.length!==YOGA_WASM_BYTE_LENGTH)throw Error(`Unexpected Yoga wasm size ${wasm.length}`);await fs.mkdir('.open-next/reselat',{recursive:true});await fs.writeFile('.open-next/reselat/yoga-3.2.1.wasm',wasm);for(const [file,code] of pending)await fs.writeFile(file,code);await fs.mkdir('.open-next/assets/_pdf-fonts',{recursive:true});await fs.copyFile('assets/fonts/NotoSansSC-Regular.otf','.open-next/assets/_pdf-fonts/NotoSansSC-Regular.otf');console.log(`PDF patch: ${total} fonts; Yoga ${wasm.length} bytes`);}
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await main();

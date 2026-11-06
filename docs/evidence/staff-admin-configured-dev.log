@@ -1,0 +1,43 @@
+
+> trade-workstation@0.1.0 dev
+> next dev --hostname 127.0.0.1
+
+▲ Next.js 16.4.2 (Turbopack)
+- Local:         http://127.0.0.1:3000
+- Network:       http://127.0.0.1:3000
+- Environments: .env.local
+✓ Ready in 375ms
+✓ Running next.config.ts took 18ms
+
+ GET /admin 200 in 9.8s (next.js: 1216ms, proxy.ts: 1611ms, application-code: 6.9s)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 11.8s (next.js: 196ms, proxy.ts: 480ms, application-code: 11.1s)
+ GET /login 200 in 14ms (next.js: 3ms, application-code: 12ms)
+ POST /api/admin/employees/provision 401 in 142ms (next.js: 137ms, proxy.ts: 1.6ms, application-code: 4ms)
+ GET /admin 307 in 42ms (next.js: 6ms, proxy.ts: 8ms, application-code: 28ms)
+ GET /login 200 in 12ms (next.js: 0.7ms, application-code: 11ms)
+ GET /admin 200 in 6.6s (next.js: 37ms, proxy.ts: 1451ms, application-code: 5.1s)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 12.9s (next.js: 22ms, proxy.ts: 1343ms, application-code: 11.5s)
+ POST /api/admin/employees/provision 202 in 9.3s (next.js: 61ms, proxy.ts: 1016ms, application-code: 8.2s)
+ POST /api/admin/employees/provision 202 in 9.9s (next.js: 5ms, proxy.ts: 1013ms, application-code: 8.9s)
+✓ Compiled in 297ms
+ POST /api/admin/employees/provision 202 in 12.6s (next.js: 29ms, proxy.ts: 1232ms, application-code: 11.3s)
+ POST /api/admin/employees/provision 409 in 9.8s (next.js: 73ms, proxy.ts: 966ms, application-code: 8.8s)
+ GET /admin 200 in 6.8s (next.js: 103ms, proxy.ts: 1333ms, application-code: 5.4s)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 7.9s (next.js: 5ms, proxy.ts: 1134ms, application-code: 6.7s)
+✓ Compiled in 88ms
+ POST /api/admin/employees/provision 200 in 21.4s (next.js: 14ms, proxy.ts: 1381ms, application-code: 20.0s)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 8.0s (next.js: 9ms, proxy.ts: 1344ms, application-code: 6.6s)
+ GET /admin 200 in 6.7s (next.js: 6ms, proxy.ts: 1349ms, application-code: 5.4s)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 8.2s (next.js: 6ms, proxy.ts: 1420ms, application-code: 6.8s)
+ GET /admin 200 in 6.8s (next.js: 6ms, proxy.ts: 1380ms, application-code: 5.4s)
+ GET /workspace 200 in 2.6s (next.js: 93ms, proxy.ts: 467ms, application-code: 2.1s)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 8.3s (next.js: 6ms, proxy.ts: 1052ms, application-code: 7.2s)
+ GET /workspace/catalog 200 in 3.1s (next.js: 79ms, proxy.ts: 1025ms, application-code: 2.0s)
+ GET /admin 200 in 6.2s (next.js: 8ms, proxy.ts: 420ms, application-code: 5.8s)
+ GET /api/admin/employees?search=&role=&status=active&offset=0 200 in 8.3s (next.js: 5ms, proxy.ts: 904ms, application-code: 7.4s)
+ GET /login 200 in 24ms (next.js: 1.0ms, application-code: 23ms)
+ POST /api/account/login 200 in 1942ms (next.js: 83ms, proxy.ts: 1278ms, application-code: 581ms)
+ GET /workspace 200 in 6.0s (next.js: 15ms, proxy.ts: 778ms, application-code: 5.2s)
+ GET /workspace 200 in 5.4s (next.js: 6ms, proxy.ts: 1077ms, application-code: 4.3s)
+ GET /workspace/customers 200 in 3.3s (next.js: 290ms, proxy.ts: 1353ms, application-code: 1679ms)
+ GET /workspace/catalog 200 in 2.8s (next.js: 27ms, proxy.ts: 1279ms, application-code: 1508ms)

@@ -1,0 +1,29 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace/contracts.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/workspace/contracts.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspace/contracts.test.ts [ tests/workspace/contracts.test.ts ]
+Error: Cannot find package '@/modules/workspace/contracts' imported from /Volumes/数据/开发项目/外贸工作站/tests/workspace/contracts.test.ts
+ ❯ tests/workspace/contracts.test.ts:4:1
+      2| import { initialWorkspace } from '@/modules/workspace/seed';
+      3| import { createOrder,saveDocument } from '@/modules/workspace/operatio…
+      4| import { buildSalesContract } from '@/modules/workspace/contracts';
+       | ^
+      5| import { validateTradeDocument,renderTradeDocument } from '@/templates…
+      6| import { decodeWorkspace } from '@/modules/workspace/storage-codec';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:29:10
+   Duration  125ms (worker 97%, environment 3%)
+

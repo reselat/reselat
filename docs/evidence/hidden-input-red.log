@@ -1,0 +1,41 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/hidden-input.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/hidden-input.test.ts (3 tests | 2 failed) 3ms
+   × strips terminal bracketed paste wrappers without changing the password 2ms
+   × handles paste escape sequences split between terminal input chunks 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/hidden-input.test.ts > strips terminal bracketed paste wrappers without changing the password
+AssertionError: expected '[200~TEST@#-ONLY[201~' to be 'TEST@#-ONLY' // Object.is equality
+
+Expected: "TEST@#-ONLY"
+Received: "[200~TEST@#-ONLY[201~"
+
+ ❯ tests/hidden-input.test.ts:3:187
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/hidden-input.test.ts > handles paste escape sequences split between terminal input chunks
+AssertionError: expected '[200~TEST[201~' to be 'TEST' // Object.is equality
+
+Expected: "TEST"
+Received: "[200~TEST[201~"
+
+ ❯ tests/hidden-input.test.ts:4:225
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  12:42:57
+   Duration  76ms (transform 51%, import 23%, tests 16%, worker 10%)
+

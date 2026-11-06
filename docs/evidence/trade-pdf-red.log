@@ -1,0 +1,43 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/templates/trade.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/templates/trade.test.ts (3 tests | 2 failed) 6ms
+   × preserves non-USD currency and maintained party and trade data 1ms
+   × renders an actual entered order as a printable trade form 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/templates/trade.test.ts > preserves non-USD currency and maintained party and trade data
+Error: NOT_IMPLEMENTED
+ ❯ validateTradeDocument src/templates/trade.tsx:2:85
+      1| import type { TradeDocument } from '@/modules/workspace/model';
+      2| export function validateTradeDocument(input:unknown):TradeDocument{voi…
+       |                                                                                     ^
+      3| export async function renderTradeDocument(input:TradeDocument):Promise…
+      4|
+ ❯ tests/templates/trade.test.ts:8:82
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/templates/trade.test.ts > renders an actual entered order as a printable trade form
+Error: NOT_IMPLEMENTED
+ ❯ renderTradeDocument src/templates/trade.tsx:3:101
+      1| import type { TradeDocument } from '@/modules/workspace/model';
+      2| export function validateTradeDocument(input:unknown):TradeDocument{voi…
+      3| export async function renderTradeDocument(input:TradeDocument):Promise…
+       |                                                                                                     ^
+      4|
+ ❯ tests/templates/trade.test.ts:9:92
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  14:50:39
+   Duration  126ms (import 70%, transform 19%, tests 9%, worker 2%)
+

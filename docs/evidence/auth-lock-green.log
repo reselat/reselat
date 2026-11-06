@@ -1,0 +1,13 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/auth-database.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  07:22:42
+   Duration  1.26s (tests 99%, import 1%, transform 1%)
+

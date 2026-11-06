@@ -1,0 +1,26 @@
+const labels:Record<string,string>={
+ 'refund.ai.reserve':'登记退税清单AI预审',
+ 'refund.ai.complete':'退税清单AI预审完成',
+ 'refund.ai.unknown':'退税AI预审结果待核对',
+ 'refund.ai.failed':'退税AI预审请求被拒绝',
+ 'expense.create':'新建费用单',
+ 'expense.submit':'提交费用审批',
+ 'expense.approve':'批准费用',
+ 'expense.reject':'驳回费用',
+ 'expense.cancel':'取消费用单',
+ 'expense.pay':'登记报销付款',
+ 'expense.void':'冲销报销付款',
+ 'cost.plan':'追加订单成本版本',
+ 'risk.ai.reserve':'预留AI风险分析额度',
+ 'risk.ai.complete':'AI风险分析完成',
+ 'risk.ai.failed':'AI服务拒绝请求',
+ 'risk.ai.unknown':'AI分析结果待核对',
+ 'risk.ai.reconcile':'管理员核对AI异常请求（保留额度）',
+ 'employee.handover':'员工离职资料交接',
+ 'file.intent':'创建文件归档任务',
+ 'file.uploading':'开始上传文件',
+ 'file.stored':'文件上传并校验成功',
+ 'file.needs_reconciliation':'上传结果待核对，可在附件中核对归档结果',
+};
+
+export function auditActionLabel(action:string){return labels[action]??action;}

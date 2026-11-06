@@ -1,0 +1,9 @@
+begin;
+create table trade_business.payments(company_id uuid not null,id uuid not null,kind text not null check(kind in ('sale','purchase')),order_id uuid not null,purchase_id uuid,state text not null default 'pending' check(state in ('pending','active','void')),version integer not null default 1 check(version>0),currency text not null check(currency in ('USD','CNY','EUR','GBP','HKD','JPY')),amount_minor numeric(38,0) not null check(amount_minor>0),day date not null,reference text not null check(length(reference) between 1 and 200),note text not null,void_reason text,created_by uuid not null,primary key(company_id,id),foreign key(company_id,order_id) references trade_business.orders(company_id,id),foreign key(company_id,order_id,purchase_id) references trade_business.purchase_orders(company_id,order_id,id),check((kind='sale' and purchase_id is null) or (kind='purchase' and purchase_id is not null)));
+create unique index payment_sale_reference on trade_business.payments(company_id,order_id,reference) where kind='sale' and state<>'void';
+create unique index payment_purchase_reference on trade_business.payments(company_id,purchase_id,reference) where kind='purchase' and state<>'void';
+create index payments_balance on trade_business.payments(company_id,order_id,state);
+create table trade_business.payment_events(company_id uuid not null,id uuid not null,payment_id uuid not null,actor_id uuid not null,action text not null check(action in ('submit','confirm','void')),reason text,created_at timestamptz not null default now(),primary key(company_id,id),foreign key(company_id,payment_id) references trade_business.payments(company_id,id));
+grant select,insert on trade_business.payments,trade_business.payment_events to business_backend;
+grant update(state,version,void_reason) on trade_business.payments to business_backend;
+commit;

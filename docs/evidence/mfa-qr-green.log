@@ -1,0 +1,9 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  12:56:51
+   Duration  59ms (import 43%, transform 41%, tests 9%, worker 6%)
+

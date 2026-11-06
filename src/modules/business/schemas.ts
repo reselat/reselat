@@ -1,0 +1,11 @@
+import {z} from 'zod';
+import {assertPrecision} from '@/domain/precision';
+export const uuid=z.string().uuid();
+export const version=z.number().int().positive();
+export const minor=z.string().refine(value=>{try{assertPrecision(value,'minor');return true;}catch{return false;}});
+export const decimal=z.string().refine(value=>{try{assertPrecision(value,'quantity');return true;}catch{return false;}});
+export const positiveDecimal=decimal.refine(value=>BigInt(value.replace('.',''))>0n);
+export const commandMeta={requestId:uuid};
+export const date=z.iso.date();
+export const currency=z.enum(['USD','CNY','EUR','GBP','HKD','JPY']);
+export const jsonResult=z.record(z.string(),z.json());

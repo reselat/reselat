@@ -1,0 +1,14 @@
+trade-workstation@0.1.0 /Volumes/数据/开发项目/外贸工作站
+├── @react-pdf/renderer@4.9.0
+├── @types/node@24.19.2
+├── @types/react-dom@19.3.0
+├── @types/react@19.3.0
+├── eslint-config-next@16.4.2
+├── eslint@9.39.4
+├── next@16.4.2
+├── react-dom@19.3.1
+├── react@19.3.1
+├── typescript@5.9.3
+├── vitest@5.0.5
+└── zod@4.6.7
+

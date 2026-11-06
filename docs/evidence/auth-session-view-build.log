@@ -1,0 +1,54 @@
+
+> trade-workstation@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.4.2 (webpack)
+- Environments: .env.local
+✓ Running next.config.ts took 12ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1607ms
+  Running TypeScript ...
+  Finished TypeScript in 898ms ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/15) ...
+  Generating static pages using 11 workers (3/15) 
+  Generating static pages using 11 workers (7/15) 
+  Generating static pages using 11 workers (11/15) 
+✓ Generating static pages using 11 workers (15/15) in 121ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /account/mfa
+├ ƒ /admin
+├ ƒ /api/account/login
+├ ƒ /api/account/logout
+├ ƒ /api/admin/employees
+├ ƒ /api/demo/documents
+├ ƒ /api/demo/pi
+├ ƒ /api/orders
+├ ƒ /api/workspace/records
+├ ○ /demo
+├ ○ /demo/catalog
+├ ○ /demo/customers
+├ ○ /demo/finance
+├ ○ /demo/orders
+├ ƒ /demo/orders/[id]
+├ ○ /demo/orders/new
+├ ƒ /demo/refunds
+├ ○ /demo/settings
+├ ○ /demo/suppliers
+├ ƒ /login
+├ ƒ /workspace
+├ ƒ /workspace/catalog
+└ ƒ /workspace/customers
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

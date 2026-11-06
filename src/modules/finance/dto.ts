@@ -1,0 +1,7 @@
+import {z} from 'zod';
+import {currency,uuid} from '@/modules/business/schemas';
+import {costPlanSnapshot} from './costs';
+export const riskDTO=z.object({code:z.string(),level:z.enum(['warning','critical']),stage:z.string(),title:z.string(),advice:z.string()});
+export const riskFeedDTO=z.object({items:z.array(riskDTO.extend({key:z.string(),orderId:uuid,orderNo:z.string(),read:z.boolean()})),hasMore:z.boolean(),offset:z.number(),checkedAt:z.string(),delivery:z.literal('in-app-polling')});
+export const costReportDTO=z.object({orderId:uuid,orderNo:z.string(),currency,revenueMinor:z.string(),version:z.number(),versions:z.array(z.object({version:z.number(),snapshot:costPlanSnapshot,reason:z.string(),createdAt:z.string()})),analysis:z.object({baselineCostMinor:z.string(),forecastCostMinor:z.string(),committedCostMinor:z.string(),baselineProfitMinor:z.string().nullable(),forecastProfitMinor:z.string().nullable(),profitChangeMinor:z.string().nullable(),marginBps:z.string().nullable(),unknown:z.array(z.string()),risks:z.array(riskDTO)}).nullable(),committed:z.record(z.string(),z.string()),paidCostMinor:z.string().nullable(),risks:z.array(riskDTO),fingerprint:z.string()});
+export const riskAiResultDTO=z.object({id:uuid,state:z.enum(['reserved','running','succeeded','failed','unknown']),answer:z.object({summary:z.string(),suggestions:z.array(z.object({riskCode:z.string(),action:z.string()}))}).nullable(),stale:z.boolean()});

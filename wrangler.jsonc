@@ -1,0 +1,22 @@
+// Cloudflare Workers（@opennextjs/cloudflare）部署配置。密钥一律用 `wrangler secret put`，不得写入本文件。
+// 说明见 docs/development/Cloudflare-部署清单.md
+{
+ "$schema": "node_modules/wrangler/config-schema.json",
+ "name": "siliantai",
+ "main": "cloudflare/worker.ts",
+ "compatibility_date": "2026-11-05",
+ "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+ "assets": {"directory": ".open-next/assets", "binding": "ASSETS"},
+ "services": [{"binding": "WORKER_SELF_REFERENCE", "service": "siliantai"}],
+ // 其余非密钥变量（APP_ORIGIN、项目 ref 等）在 Dashboard 配置；keep_vars 防止 deploy 覆盖它们。
+ "keep_vars": true,
+ "vars": {"DEPLOYMENT_TARGET": "cloudflare"},
+ "observability": {"enabled": true}
+ // 上线时取消注释并填入 `wrangler hyperdrive create` 返回的 id（id 非密钥）：
+ // ,"hyperdrive": [
+ //   {"binding": "HYPERDRIVE_IDENTITY", "id": "<identity-hyperdrive-id>"},
+ //   {"binding": "HYPERDRIVE_BUSINESS", "id": "<business-hyperdrive-id>"}
+ // ]
+ // PDF 场景建议 Workers Paid 设置 60000 ms CPU：,"limits": {"cpu_ms": 60000}
+ // 自定义域名（zone 已在 Cloudflare 时）：,"routes": [{"pattern": "<erp.example.com>", "custom_domain": true}]
+}

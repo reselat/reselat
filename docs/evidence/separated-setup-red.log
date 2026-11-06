@@ -1,0 +1,25 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/separated-setup.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/separated-setup.test.ts [ tests/separated-setup.test.ts ]
+Error: Cannot find module '../scripts/separated-setup' imported from /Volumes/数据/开发项目/外贸工作站/tests/separated-setup.test.ts
+ ❯ tests/separated-setup.test.ts:3:1
+      1| import {it,expect} from 'vitest';
+      2| import {spawnSync} from 'node:child_process';
+      3| import {parseSeparatedOwner,replaceSeparatedEnv,parseLocalEnv} from '.…
+       | ^
+      4| const ref='qgbsikqgunmsipegkvda';
+      5| const raw=`postgresql://postgres.${ref}:[YOUR-PASSWORD]@aws-0-ap-south…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  13:56:10
+   Duration  55ms (worker 96%, environment 4%)
+

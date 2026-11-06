@@ -1,0 +1,65 @@
+
+> trade-workstation@0.1.0 dev
+> next dev --hostname 127.0.0.1
+
+▲ Next.js 16.4.2 (Turbopack)
+- Local:         http://127.0.0.1:3000
+- Network:       http://127.0.0.1:3000
+✓ Ready in 397ms
+✓ Running next.config.ts took 264ms
+
+ GET /demo/orders/722d117c-45fe-4bac-b3e0-c8cdb3e0cb71 200 in 435ms (next.js: 346ms, application-code: 89ms)
+✓ Compiled in 797ms
+ POST /api/demo/documents 200 in 348ms (next.js: 36ms, application-code: 312ms)
+ GET /demo/orders/722d117c-45fe-4bac-b3e0-c8cdb3e0cb71 200 in 30ms (next.js: 4ms, application-code: 26ms)
+ POST /api/demo/documents 200 in 31ms (next.js: 0.7ms, application-code: 31ms)
+ GET /demo/catalog 200 in 15ms (next.js: 2ms, application-code: 13ms)
+ GET /demo/orders 200 in 23ms (next.js: 4ms, application-code: 19ms)
+ GET /demo/orders 200 in 37ms (next.js: 4ms, application-code: 33ms)
+✓ Compiled in 72ms
+ GET /demo/customers 200 in 23ms (next.js: 4ms, application-code: 19ms)
+✓ Compiled in 2ms
+ GET /demo/customers 200 in 22ms (next.js: 1.4ms, application-code: 20ms)
+ GET /demo/customers 200 in 17ms (next.js: 0.7ms, application-code: 16ms)
+✓ Compiled in 47ms
+  Reload env: .env.local
+✓ Compiled in 80ms
+ GET /demo/customers 200 in 156ms (next.js: 4ms, application-code: 152ms)
+ GET /demo/orders 200 in 136ms (next.js: 90ms, application-code: 46ms)
+ GET /demo/customers 200 in 40ms (next.js: 11ms, application-code: 29ms)
+ GET /demo/orders 200 in 30ms (next.js: 6ms, application-code: 23ms)
+ GET /demo/customers 200 in 27ms (next.js: 0.4ms, application-code: 27ms)
+ GET /demo/orders 200 in 27ms (next.js: 0.5ms, application-code: 27ms)
+ GET /demo/customers 200 in 27ms (next.js: 0.6ms, application-code: 26ms)
+ GET /demo/orders 200 in 21ms (next.js: 0.4ms, application-code: 20ms)
+ GET /demo/customers 200 in 15ms (next.js: 0.4ms, application-code: 14ms)
+ GET /demo/orders 200 in 8ms (next.js: 0.3ms, application-code: 8ms)
+ GET /demo/customers 200 in 32ms (next.js: 0.7ms, application-code: 32ms)
+ GET /demo/orders 200 in 24ms (next.js: 0.5ms, application-code: 23ms)
+ GET /demo/customers 200 in 31ms (next.js: 0.4ms, application-code: 30ms)
+ GET /demo/orders 200 in 24ms (next.js: 0.4ms, application-code: 24ms)
+ GET /demo/customers 200 in 18ms (next.js: 0.7ms, application-code: 17ms)
+ GET /demo/orders 200 in 17ms (next.js: 7ms, application-code: 11ms)
+ GET /demo/orders 200 in 15ms (next.js: 0.6ms, application-code: 15ms)
+ GET /demo/customers 200 in 8ms (next.js: 0.5ms, application-code: 7ms)
+✓ Compiled in 9ms
+ GET /demo/orders 200 in 55ms (next.js: 4ms, application-code: 51ms)
+ GET /demo/customers 200 in 38ms (next.js: 1.8ms, application-code: 36ms)
+ GET /demo/orders 200 in 24ms (next.js: 1.3ms, application-code: 23ms)
+ GET /demo/customers 200 in 24ms (next.js: 11ms, application-code: 13ms)
+✓ Compiled in 40ms
+ GET /demo/customers 200 in 29ms (next.js: 2ms, application-code: 26ms)
+ GET /demo/orders 200 in 28ms (next.js: 19ms, application-code: 9ms)
+ GET /admin 307 in 1206ms (next.js: 1080ms, proxy.ts: 71ms, application-code: 55ms)
+ GET /login 200 in 13ms (next.js: 2ms, application-code: 11ms)
+ GET /api/admin/employees 401 in 183ms (next.js: 171ms, proxy.ts: 3ms, application-code: 9ms)
+ GET /api/workspace/records?kind=customer 401 in 69ms (next.js: 63ms, proxy.ts: 1.1ms, application-code: 5ms)
+ POST /api/account/login 401 in 3.4s (next.js: 1360ms, proxy.ts: 11ms, application-code: 1988ms)
+✓ Compiled in 295ms
+ GET /demo/customers 200 in 30ms (next.js: 3ms, application-code: 28ms)
+ GET /demo/orders 200 in 13ms (next.js: 2ms, application-code: 11ms)
+✓ Compiled in 768ms
+✓ Compiled in 463ms
+  Reload env: .env.local
+ GET /login 200 in 115ms (next.js: 57ms, application-code: 58ms)
+[?25h

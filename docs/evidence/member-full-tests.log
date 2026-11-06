@@ -1,0 +1,16 @@
+
+> trade-workstation@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  39 passed (39)
+      Tests  129 passed (129)
+   Start at  13:29:23
+   Duration  3.66s (tests 82%, import 15%, transform 3%, worker 1%)
+
+    Isolate  39 workers spawned · ~111ms startup each (spawn + environment, per file)
+             at least ~283ms faster with isolate: false — reuses workers across files instead of one per file
+

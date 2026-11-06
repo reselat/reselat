@@ -1,0 +1,25 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/separated-records.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/separated-records.test.ts [ tests/separated-records.test.ts ]
+Error: Cannot find module '/src/server/auth/member-directory' imported from /Volumes/数据/开发项目/外贸工作站/tests/separated-records.test.ts
+ ❯ tests/separated-records.test.ts:5:1
+      3| vi.mock('@/server/db/client',()=>({authDatabase:mocks.identity,busines…
+      4| vi.mock('@/server/auth/session',()=>({requireEmployee:mocks.requireEmp…
+      5| import {rereadEmployee,assertActiveCompanyMember} from '../src/server/…
+       | ^
+      6| import {GET,POST} from '../src/app/api/workspace/records/route';
+      7| const id='00000000-0000-4000-8000-000000000001',company='00000000-0000…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  13:54:42
+   Duration  61ms (worker 96%, environment 4%)
+

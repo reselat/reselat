@@ -1,0 +1,46 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace/customs.test.ts tests/workspace/review-regressions.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/workspace/customs.test.ts (5 tests | 1 failed) 9ms
+   × opens a blank product draft without validating required fields before entry 1ms
+ ❯ tests/workspace/review-regressions.test.ts (3 tests | 1 failed) 9ms
+   × allocates split shipment rounding so summed CI equals sales receivable 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspace/customs.test.ts > opens a blank product draft without validating required fields before entry
+TypeError: newProductDraft is not a function
+ ❯ tests/workspace/customs.test.ts:12:99
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/workspace/review-regressions.test.ts > allocates split shipment rounding so summed CI equals sales receivable
+AssertionError: expected [Function] to not throw an error but 'Error: 单据合计与明细不符' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: 单据合计与明细不符"
+
+ ❯ tests/workspace/review-regressions.test.ts:13:43
+     11|  expect(a.totalMinor).toBe('34');expect(b.totalMinor).toBe('33');expec…
+     12|  expect(b.lines[0]?.roundingAdjustmentMinor).toBe('-1');
+     13|  expect(()=>validateTradeDocument(b)).not.toThrow();
+       |                                           ^
+     14| });
+     15| it('does not identify our own purchaser as the purchase order benefici…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 6 passed (8)
+   Start at  06:53:19
+   Duration  342ms (import 82%, transform 12%, tests 5%, worker 1%)
+

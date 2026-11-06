@@ -1,0 +1,43 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/member-provision-pagination.test.ts (1 test | 1 failed) 10ms
+   × permits access to older recovery requests beyond the first 50 records 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/member-provision-pagination.test.ts > permits access to older recovery requests beyond the first 50 records
+AssertionError: expected "vi.fn()" to be called with arguments: [ Anything, 50 ]
+
+Received:
+
+  1st vi.fn() call:
+
+  [
+-   Anything,
+-   50,
++   {
++     "companyId": "company",
++     "id": "actor",
++   },
+  ]
+
+
+Number of calls: 1
+
+ ❯ tests/member-provision-pagination.test.ts:8:49
+      6| it('permits access to older recovery requests beyond the first 50 reco…
+      7|  const result=await GET(new Request('http://127.0.0.1:3000/api/admin/e…
+      8|  expect(result.status).toBe(200);expect(lookup).toHaveBeenCalledWith(e…
+       |                                                 ^
+      9|  expect(await result.json()).toEqual({operations:[],hasMore:true});
+     10| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  13:26:02
+   Duration  83ms (import 49%, transform 24%, tests 24%, worker 3%)
+

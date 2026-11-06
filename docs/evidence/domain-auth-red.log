@@ -1,0 +1,216 @@
+
+> trade-workstation@0.1.0 test
+> vitest run
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/auth/project-order.test.ts (3 tests | 2 failed) 2ms
+   × omits sensitive cost rather than hiding it in the UI 1ms
+   × returns cost for authorized admin 0ms
+ ❯ tests/auth/authorize.test.ts (7 tests | 7 failed) 5ms
+   ❯ resource authorization (7)
+     × rejects missing identity 3ms
+     × allows own and explicitly shared resources 1ms
+     × rejects inactive and other company identities including admin 0ms
+     × rejects unshared customer 0ms
+     × denies sales settings and cost access 0ms
+     × allows admin only in company scope 0ms
+     × operations requires explicit resource assignment and cannot edit sales 0ms
+ ❯ tests/domain/money.test.ts (15 tests | 7 failed) 3ms
+   ❯ exact money (15)
+     × calculates 3 × 0.10 at scale 2 2ms
+     × calculates 1 × 1.005 at scale 2 0ms
+     × calculates 1 × 1.5 at scale 0 0ms
+     × calculates 0.5 × 0.333 at scale 3 0ms
+     × calculates 0 × 999 at scale 2 0ms
+     × calculates 1 × 9007199254740993.01 at scale 2 0ms
+     × formats integers without Number conversion 0ms
+ ❯ tests/domain/quantities.test.ts (9 tests | 2 failed) 5ms
+   ❯ quantity validation (9)
+     × preserves exact fixed precision 2ms
+     × allows exact remaining quantity 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 18 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/auth/authorize.test.ts > resource authorization > rejects missing identity
+AssertionError: expected Error: NOT_IMPLEMENTED to be an instance of AccessError
+ ❯ tests/auth/authorize.test.ts:7:99
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/18]⎯
+
+ FAIL  tests/auth/authorize.test.ts > resource authorization > allows own and explicitly shared resources
+AssertionError: expected [Function] to not throw an error but 'Error: NOT_IMPLEMENTED' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: NOT_IMPLEMENTED"
+
+ ❯ tests/auth/authorize.test.ts:8:107
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/18]⎯
+
+ FAIL  tests/auth/authorize.test.ts > resource authorization > rejects inactive and other company identities including admin
+AssertionError: expected error to be instance of AccessError
+
+- Expected:
+[Function AccessError]
+
++ Received:
+Error {
+  "message": "NOT_IMPLEMENTED",
+}
+
+ ❯ tests/auth/authorize.test.ts:9:211
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/18]⎯
+
+ FAIL  tests/auth/authorize.test.ts > resource authorization > rejects unshared customer
+AssertionError: expected error to be instance of AccessError
+
+- Expected:
+[Function AccessError]
+
++ Received:
+Error {
+  "message": "NOT_IMPLEMENTED",
+}
+
+ ❯ tests/auth/authorize.test.ts:10:103
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/18]⎯
+
+ FAIL  tests/auth/authorize.test.ts > resource authorization > denies sales settings and cost access
+AssertionError: expected error to be instance of AccessError
+
+- Expected:
+[Function AccessError]
+
++ Received:
+Error {
+  "message": "NOT_IMPLEMENTED",
+}
+
+ ❯ tests/auth/authorize.test.ts:11:97
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/18]⎯
+
+ FAIL  tests/auth/authorize.test.ts > resource authorization > allows admin only in company scope
+AssertionError: expected [Function] to not throw an error but 'Error: NOT_IMPLEMENTED' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: NOT_IMPLEMENTED"
+
+ ❯ tests/auth/authorize.test.ts:12:121
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/18]⎯
+
+ FAIL  tests/auth/authorize.test.ts > resource authorization > operations requires explicit resource assignment and cannot edit sales
+AssertionError: expected [Function] to not throw an error but 'Error: NOT_IMPLEMENTED' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: NOT_IMPLEMENTED"
+
+ ❯ tests/auth/authorize.test.ts:13:177
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/18]⎯
+
+ FAIL  tests/auth/project-order.test.ts > omits sensitive cost rather than hiding it in the UI
+Error: NOT_IMPLEMENTED
+ ❯ projectOrder src/server/auth/project-order.ts:4:127
+      2| export type PrivateOrder = ResourceScope & { id: string; customerName:…
+      3| export type OrderView = { id: string; customerName: string; totalMinor…
+      4| export function projectOrder(order: PrivateOrder, principal: Principal…
+       |                                                                                                                               ^
+      5|
+ ❯ tests/auth/project-order.test.ts:5:75
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/18]⎯
+
+ FAIL  tests/auth/project-order.test.ts > returns cost for authorized admin
+Error: NOT_IMPLEMENTED
+ ❯ projectOrder src/server/auth/project-order.ts:4:127
+      2| export type PrivateOrder = ResourceScope & { id: string; customerName:…
+      3| export type OrderView = { id: string; customerName: string; totalMinor…
+      4| export function projectOrder(order: PrivateOrder, principal: Principal…
+       |                                                                                                                               ^
+      5|
+ ❯ tests/auth/project-order.test.ts:6:52
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/18]⎯
+
+ FAIL  tests/domain/money.test.ts > exact money > calculates 3 × 0.10 at scale 2
+ FAIL  tests/domain/money.test.ts > exact money > calculates 1 × 1.005 at scale 2
+ FAIL  tests/domain/money.test.ts > exact money > calculates 1 × 1.5 at scale 0
+ FAIL  tests/domain/money.test.ts > exact money > calculates 0.5 × 0.333 at scale 3
+ FAIL  tests/domain/money.test.ts > exact money > calculates 0 × 999 at scale 2
+ FAIL  tests/domain/money.test.ts > exact money > calculates 1 × 9007199254740993.01 at scale 2
+Error: NOT_IMPLEMENTED
+ ❯ lineAmountMinor src/domain/money.ts:1:160
+      1| export function lineAmountMinor(quantity: string, unitPrice: string, c…
+       |                                                                                                                                                                ^
+      2| export function formatMinor(value: bigint, scale: number): string { vo…
+      3|
+ ❯ tests/domain/money.test.ts:4:225
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/18]⎯
+
+ FAIL  tests/domain/money.test.ts > exact money > formats integers without Number conversion
+Error: NOT_IMPLEMENTED
+ ❯ formatMinor src/domain/money.ts:2:99
+      1| export function lineAmountMinor(quantity: string, unitPrice: string, c…
+      2| export function formatMinor(value: bigint, scale: number): string { vo…
+       |                                                                                                   ^
+      3|
+ ❯ tests/domain/money.test.ts:7:62
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/18]⎯
+
+ FAIL  tests/domain/quantities.test.ts > quantity validation > preserves exact fixed precision
+Error: NOT_IMPLEMENTED
+ ❯ parseDecimal src/domain/decimal.ts:1:100
+      1| export function parseDecimal(value: string, scale: number): bigint { v…
+       |                                                                                                    ^
+      2|
+ ❯ tests/domain/quantities.test.ts:5:51
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/18]⎯
+
+ FAIL  tests/domain/quantities.test.ts > quantity validation > allows exact remaining quantity
+AssertionError: expected [Function] to not throw an error but 'Error: NOT_IMPLEMENTED' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: NOT_IMPLEMENTED"
+
+ ❯ tests/domain/quantities.test.ts:7:87
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/18]⎯
+
+
+ Test Files  4 failed (4)
+      Tests  18 failed | 16 passed (34)
+   Start at  14:14:09
+   Duration  115ms (transform 55%, import 20%, tests 16%, worker 8%)
+

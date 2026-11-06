@@ -1,0 +1,13 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace/customs.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  15:31:59
+   Duration  97ms (import 42%, transform 41%, tests 15%, worker 3%)
+

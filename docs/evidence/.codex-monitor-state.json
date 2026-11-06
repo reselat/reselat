@@ -1,0 +1,15 @@
+{
+  "files": {
+    "/Users/oliver/.codex/sessions/2026/10/24/rollout-2026-10-24T23-38-35-01a16e90-54bd-78f0-8c88-cdae6adbc017.jsonl": {
+      "offset": 5393077,
+      "name": "rollout-2026-10-24T23-38-35-01a16e90-54bd-78f0-8c88-cdae6adbc017.jsonl"
+    },
+    "/Users/oliver/.codex/sessions/2026/10/24/rollout-2026-10-24T23-43-11-01a16e94-8bf0-7952-871a-be7ca4e9fb10.jsonl": {
+      "offset": 1308165,
+      "name": "rollout-2026-10-24T23-43-11-01a16e94-8bf0-7952-871a-be7ca4e9fb10.jsonl"
+    }
+  },
+  "lastRun": "2026-10-25T01:21:47.127Z",
+  "lastEntry": "2026-10-25T01:21:47.127Z",
+  "gitMode": "exists"
+}

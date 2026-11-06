@@ -1,0 +1,24 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace/customs.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/workspace/customs.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspace/customs.test.ts [ tests/workspace/customs.test.ts ]
+Error: Cannot find package '@/modules/workspace/customs' imported from /Volumes/数据/开发项目/外贸工作站/tests/workspace/customs.test.ts
+ ❯ tests/workspace/customs.test.ts:4:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:31:21
+   Duration  73ms (worker 96%, environment 4%)
+

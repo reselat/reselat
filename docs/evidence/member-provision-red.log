@@ -1,0 +1,20 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/member-provisioning.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/member-provisioning.test.ts [ tests/member-provisioning.test.ts ]
+Error: Cannot find module '../src/server/admin/provision-flow' imported from /Volumes/数据/开发项目/外贸工作站/tests/member-provisioning.test.ts
+ ❯ tests/member-provisioning.test.ts:2:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  13:17:34
+   Duration  56ms (worker 96%, environment 4%)
+

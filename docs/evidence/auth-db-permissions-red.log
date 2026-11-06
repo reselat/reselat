@@ -1,0 +1,28 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/auth-database.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/auth-database.test.ts (2 tests | 1 failed) 987ms
+   × grants only the backend role access to private business data and denies schema and audit rewrites 340ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/auth-database.test.ts > grants only the backend role access to private business data and denies schema and audit rewrites
+error: role "app_backend" does not exist
+ ❯ pe.Oe node_modules/@electric-sql/pg-protocol/src/parser.ts:442:11
+ ❯ pe.tt node_modules/@electric-sql/pg-protocol/src/parser.ts:220:16
+ ❯ pe.parse node_modules/@electric-sql/pg-protocol/src/parser.ts:104:21
+ ❯ D.Ne node_modules/@electric-sql/pglite/src/pglite.ts:763:26
+ ❯ node_modules/@electric-sql/pglite/src/pglite.ts:716:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  07:18:28
+   Duration  1.12s (tests 97%, import 2%, transform 1%)
+

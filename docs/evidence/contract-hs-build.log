@@ -1,0 +1,41 @@
+
+> trade-workstation@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.4.2 (webpack)
+✓ Running next.config.ts took 9ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 648ms
+  Running TypeScript ...
+  Finished TypeScript in 511ms ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/13) ...
+  Generating static pages using 11 workers (3/13) 
+  Generating static pages using 11 workers (6/13) 
+  Generating static pages using 11 workers (9/13) 
+✓ Generating static pages using 11 workers (13/13) in 98ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/demo/documents
+├ ƒ /api/demo/pi
+├ ƒ /api/orders
+├ ○ /demo
+├ ○ /demo/catalog
+├ ○ /demo/customers
+├ ○ /demo/finance
+├ ○ /demo/orders
+├ ƒ /demo/orders/[id]
+├ ○ /demo/orders/new
+├ ƒ /demo/refunds
+├ ○ /demo/settings
+└ ○ /demo/suppliers
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

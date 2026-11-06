@@ -1,0 +1,28 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/shared-records.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/shared-records.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/shared-records.test.ts [ tests/shared-records.test.ts ]
+Error: Cannot find package '@/server/workspace/records' imported from /Volumes/数据/开发项目/外贸工作站/tests/shared-records.test.ts
+ ❯ tests/shared-records.test.ts:2:1
+      1| import {it,expect} from 'vitest';
+      2| import {canReadRecord,projectRecord} from '@/server/workspace/records';
+       | ^
+      3| const sales={id:'u',companyId:'c',role:'sales' as const,enabled:true,v…
+      4| const record={id:'r',companyId:'c',ownerId:'other',kind:'customer' as …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  07:17:40
+   Duration  55ms (worker 96%, environment 4%)
+

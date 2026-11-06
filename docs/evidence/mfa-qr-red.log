@@ -1,0 +1,36 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/mfa-qr.test.ts (2 tests | 1 failed) 4ms
+   × renders a multiline Supabase SVG data URI without Next image source errors 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mfa-qr.test.ts > renders a multiline Supabase SVG data URI without Next image source errors
+AssertionError: expected [Function] to not throw an error but 'Error: Image with src "data:image/svg…' was thrown
+
+- Expected:
+undefined
+
++ Received:
+"Error: Image with src \"data:image/svg+xml;utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\">
+<rect width=\"1\" height=\"1\"/>
+</svg>
+\" cannot end with a space or control character. Use src.trimEnd() to remove it or encodeURIComponent(src) to keep it."
+
+ ❯ tests/mfa-qr.test.ts:7:98
+      5| it('renders a multiline Supabase SVG data URI without Next image sourc…
+      6|  const src=mfaQrSource('data:image/svg+xml;utf-8,'+svg);
+      7|  expect(()=>getImageProps({src,width:220,height:220,alt:'Synthetic tes…
+       |                                                                                                  ^
+      8|  expect(decodeURIComponent(src.slice(src.indexOf(',')+1))).toBe(svg);
+      9|  expect(src).not.toMatch(/[\r\n]/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  12:56:40
+   Duration  83ms (import 53%, transform 30%, tests 12%, worker 5%)
+

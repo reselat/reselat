@@ -1,0 +1,24 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/database-diagnostics.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/database-diagnostics.test.ts [ tests/database-diagnostics.test.ts ]
+Error: Cannot find module '../src/server/db/diagnostics' imported from /Volumes/数据/开发项目/外贸工作站/tests/database-diagnostics.test.ts
+ ❯ tests/database-diagnostics.test.ts:2:1
+      1| import {expect,it,vi} from 'vitest';
+      2| import {reportDatabaseFailure} from '../src/server/db/diagnostics';
+       | ^
+      3| it('records only a fixed location, generated request ID and allowliste…
+      4|  const output=vi.spyOn(console,'error').mockImplementation(()=>{});
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:09:38
+   Duration  82ms (worker 97%, environment 3%)
+

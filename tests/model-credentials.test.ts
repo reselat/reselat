@@ -1,0 +1,5 @@
+import {it,expect,vi,afterEach} from 'vitest';
+import {sealApiKey,openApiKey,credentialsReady} from '@/server/ai/credentials';
+afterEach(()=>vi.unstubAllEnvs());
+it('encrypts keys with random IVs and authenticates company and model identity',()=>{vi.stubEnv('AI_CREDENTIALS_ENCRYPTION_KEY',Buffer.alloc(32,7).toString('base64'));const key='SYNTHETIC_KEY_ONLY',a=sealApiKey(key,'company-a','model-a'),b=sealApiKey(key,'company-a','model-a');expect(a).not.toContain(key);expect(a).not.toBe(b);expect(openApiKey(a,'company-a','model-a')).toBe(key);expect(()=>openApiKey(a,'company-b','model-a')).toThrow('AI_CREDENTIAL_INVALID');expect(()=>openApiKey(a,'company-a','model-b')).toThrow('AI_CREDENTIAL_INVALID');const parts=a.split('.');parts[3]=Buffer.from('tampered').toString('base64');expect(()=>openApiKey(parts.join('.'),'company-a','model-a')).toThrow('AI_CREDENTIAL_INVALID');});
+it('fails closed without an encryption master key',()=>{vi.stubEnv('AI_CREDENTIALS_ENCRYPTION_KEY','');expect(credentialsReady()).toBe(false);expect(()=>sealApiKey('SYNTHETIC','c','m')).toThrow('AI_KEY_STORAGE_NOT_CONFIGURED');});

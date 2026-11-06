@@ -1,0 +1,6 @@
+trade-PI.pdf 1 pages: text stays inside paper margins
+Traceback (most recent call last):
+  File "/Volumes/数据/开发项目/外贸工作站/scripts/check-trade-layout.py", line 7, in <module>
+    assert not bad,(file.name,page.page_number,'text exceeds paper margin',[(c['text'],round(c['x1'])) for c in bad[:5]])
+           ^^^^^^^
+AssertionError: ('trade-long.pdf', 1, 'text exceeds paper margin', [('参', 573), ('考', 581), ('客', 589), ('户', 597), ('参', 605)])

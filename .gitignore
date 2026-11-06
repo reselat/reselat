@@ -1,0 +1,27 @@
+node_modules/
+.next/
+.env*
+!.env.example
+artifacts/
+coverage/
+*.tsbuildinfo
+.DS_Store
+.vercel/
+.vercel
+
+!deploy/local/.env.example
+deploy/local/backups/
+deploy/local/secrets/
+private-files/
+
+# CodeGraph 本地索引（8.7MB，机器生成，不入库）
+.codegraph/
+
+# Isolated development-only virtual company data
+.local-test-data/
+.env.local
+
+.open-next/
+.wrangler/
+.dev.vars
+cloudflare-env.d.ts

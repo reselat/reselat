@@ -1,0 +1,24 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/separated-schema.test.ts (1 test | 1 failed) 901ms
+   × isolates identity grants from legacy business objects and excludes identity tables from the new business database 901ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/separated-schema.test.ts > isolates identity grants from legacy business objects and excludes identity tables from the new business database
+error: role "anon" does not exist
+ ❯ pe.Oe node_modules/@electric-sql/pg-protocol/src/parser.ts:442:11
+ ❯ pe.tt node_modules/@electric-sql/pg-protocol/src/parser.ts:220:16
+ ❯ pe.parse node_modules/@electric-sql/pg-protocol/src/parser.ts:104:21
+ ❯ D.Ne node_modules/@electric-sql/pglite/src/pglite.ts:763:26
+ ❯ node_modules/@electric-sql/pglite/src/pglite.ts:716:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  13:54:15
+   Duration  985ms (tests 99%, import 1%)
+

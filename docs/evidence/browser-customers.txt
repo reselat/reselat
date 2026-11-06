@@ -1,0 +1,92 @@
+[p1 "航单 · 外贸工作台" | space "外贸工作台本地验证-20261023"(4): 1 managed, 0 untracked — p1* "航单 · 外贸工作台"]
+root
+  container
+    container
+      anchor [ref=27, url=http://127.0.0.1:3000/demo]
+        text "航"
+        container
+          text "航单"
+          text "外贸工作台"
+      container
+        text "示例外贸公司"
+        text "⌄"
+      container "主导航"
+        paragraph
+          text "日常业务"
+        anchor [ref=28, url=http://127.0.0.1:3000/demo]
+          text "◫"
+          text "我的工作台"
+        anchor [ref=29, loc=href:/demo/customers, url=http://127.0.0.1:3000/demo/customers]
+          text "◎"
+          text "客户与跟进"
+        anchor [ref=30, loc=href:/demo/orders, url=http://127.0.0.1:3000/demo/orders]
+          text "▤"
+          text "销售订单"
+        anchor [ref=31, loc=href:/demo/catalog, url=http://127.0.0.1:3000/demo/catalog]
+          text "▦"
+          text "产品与供应商"
+      container
+        text "本地演示环境"
+        paragraph
+          text "全部资料为虚构样例"
+        container
+          text "演"
+          container
+            text "业务演示"
+            text "未连接真实账号"
+    container
+      container
+        text "内部业务工作空间"
+        container
+          text "虚构数据"
+          text "2026 年 10 月 23 日"
+      container
+        container
+          container
+            text "工作空间 / 客户与跟进"
+            heading
+              text "客户与跟进"
+            paragraph
+              text "把客户需求和下一次联系，放在一起。"
+          button [ref=32]
+            text "＋ 新建演示客户"
+        text "本页仅演示操作；数据暂存本页内存，刷新后重置。请勿录入真实客户个人资料。"
+        status
+          text "已保存演示客户。仅本页内存生效，刷新将恢复样例。"
+        container
+          container
+            searchbox "搜索客户" [ref=33, loc=css:input[placeholder="搜索公司、国家或城市"]]
+              text "测试虚构客户"
+            container
+              text "1"
+              text "位客户"
+          table
+            table_row
+              table_cell
+                text "客户公司"
+              table_cell
+                text "国家 / 城市"
+              table_cell
+                text "跟进阶段"
+              table_cell
+                text "下次跟进"
+              table_cell
+                text "负责人"
+              table_cell
+            table_row
+              table_cell
+                text "测"
+                text "测试虚构客户"
+              table_cell
+                text "加拿大"
+                text "温哥华"
+              table_cell
+                text "新需求"
+              table_cell
+                text "2026-11-01"
+              table_cell
+                text "示例业务员"
+              table_cell
+                button [ref=38]
+                  text "查看跟进"
+      text "本地功能验证版 · 尚未连接数据库、员工登录或云存储"

@@ -1,0 +1,13 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/database-setup-diagnostics.test.ts tests/database-setup-target.test.ts tests/database-setup.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  3 passed (3)
+      Tests  7 passed (7)
+   Start at  09:10:58
+   Duration  100ms (tests 60%, transform 23%, import 12%, worker 5%)
+

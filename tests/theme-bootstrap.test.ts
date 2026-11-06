@@ -1,0 +1,5 @@
+import {expect,it} from 'vitest';
+import {runInNewContext} from 'node:vm';
+import {themeBootstrap} from '@/modules/appearance/bootstrap';
+it.each([{stored:'light',dark:true,mode:'light',theme:'light'},{stored:'dark',dark:false,mode:'dark',theme:'dark'},{stored:'system',dark:true,mode:'system',theme:'dark'},{stored:null,dark:false,mode:'system',theme:'light'},{stored:'invalid',dark:true,mode:'system',theme:'dark'}])('initializes preference and actual appearance separately: $stored',({stored,dark,mode,theme})=>{const dataset:Record<string,string>={};runInNewContext(themeBootstrap,{document:{documentElement:{dataset}},localStorage:{getItem:()=>stored},matchMedia:()=>({matches:dark})});expect(dataset).toEqual({themePreference:mode,theme});});
+it('uses the system when preference storage is unavailable',()=>{const dataset:Record<string,string>={};runInNewContext(themeBootstrap,{document:{documentElement:{dataset}},localStorage:{getItem:()=>{throw new Error('UNAVAILABLE');}},matchMedia:()=>({matches:true})});expect(dataset).toEqual({themePreference:'system',theme:'dark'});});

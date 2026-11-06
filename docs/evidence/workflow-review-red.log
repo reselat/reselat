@@ -1,0 +1,82 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace/review-regressions.test.ts tests/workspace/document-api.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/workspace/review-regressions.test.ts (3 tests | 3 failed) 9ms
+   × allocates split shipment rounding so summed CI equals sales receivable 7ms
+   × does not identify our own purchaser as the purchase order beneficiary 1ms
+   × rejects unprintable master field lengths before freezing an order 0ms
+ ❯ tests/workspace/document-api.test.ts (2 tests | 1 failed) 8ms
+   × accepts loopback origin matched to Host when Next uses localhost internally 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspace/document-api.test.ts > accepts loopback origin matched to Host when Next uses localhost internally
+AssertionError: expected 403 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 403
+
+ ❯ tests/workspace/document-api.test.ts:4:184
+      2| import {POST} from '@/app/api/demo/documents/route';
+      3| it('accepts loopback origin matched to Host when Next uses localhost i…
+      4|  const r=await POST(new Request('http://localhost:3000/api/demo/docume…
+       |                                                                                                                                                                                        ^
+      5| });
+      6| it('rejects cross origin and public hosts',async()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/workspace/review-regressions.test.ts > allocates split shipment rounding so summed CI equals sales receivable
+AssertionError: expected '34' to be '33' // Object.is equality
+
+Expected: "33"
+Received: "34"
+
+ ❯ tests/workspace/review-regressions.test.ts:11:55
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/workspace/review-regressions.test.ts > does not identify our own purchaser as the purchase order beneficiary
+AssertionError: expected 'Beneficiary: Example Export Co., Ltd.…' not to contain 'TEST BUYER BANK'
+
+Expected: "TEST BUYER BANK"
+Received: "Beneficiary: Example Export Co., Ltd. (FICTIONAL) Bank: TEST BUYER BANK | Account: Not provided | SWIFT: Not provided"
+
+ ❯ tests/workspace/review-regressions.test.ts:17:106
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  tests/workspace/review-regressions.test.ts > rejects unprintable master field lengths before freezing an order
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/workspace/review-regressions.test.ts:20:112
+     18| });
+     19| it('rejects unprintable master field lengths before freezing an order'…
+     20|  const s=initialWorkspace();expect(partySchema.safeParse({...s.custome…
+       |                                                                                                                ^
+     21|  expect(companySchema.safeParse({...s.company,name:'A'.repeat(121)}).s…
+     22|  s.customers[0].address='A'.repeat(201);expect(()=>createOrder(s,input…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  4 failed | 1 passed (5)
+   Start at  15:03:35
+   Duration  249ms (import 83%, transform 11%, tests 5%, worker 1%)
+

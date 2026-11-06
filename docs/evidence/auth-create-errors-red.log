@@ -1,0 +1,24 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/auth-create-errors.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/auth-create-errors.test.ts [ tests/auth-create-errors.test.ts ]
+Error: Cannot find module '../src/server/admin/auth-create-errors' imported from /Volumes/数据/开发项目/外贸工作站/tests/auth-create-errors.test.ts
+ ❯ tests/auth-create-errors.test.ts:2:1
+      1| import {it,expect} from 'vitest';
+      2| import {classifyAuthCreateError} from '../src/server/admin/auth-create…
+       | ^
+      3| import {creationFailureMessage} from '../src/modules/account/admin/cre…
+      4| it.each([
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  14:25:40
+   Duration  72ms (worker 97%, environment 3%)
+

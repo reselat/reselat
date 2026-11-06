@@ -1,0 +1,35 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/mfa-enrollment.test.ts (2 tests | 1 failed) 3ms
+   × does not reuse a fixed friendly name after an interrupted enrollment 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/mfa-enrollment.test.ts > does not reuse a fixed friendly name after an interrupted enrollment
+AssertionError: expected { factorType: 'totp', …(1) } to deeply equal { factorType: 'totp' }
+
+- Expected
++ Received
+
+  {
+    "factorType": "totp",
++   "friendlyName": "Trade workstation authenticator",
+  }
+
+ ❯ tests/mfa-enrollment.test.ts:4:34
+      2| import {totpEnrollmentOptions,enrollmentErrorMessage} from '../src/mod…
+      3| it('does not reuse a fixed friendly name after an interrupted enrollme…
+      4|  expect(totpEnrollmentOptions()).toEqual({factorType:'totp'});
+       |                                  ^
+      5| });
+      6| it('classifies enrollment failure without displaying upstream messages…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  12:58:40
+   Duration  58ms (transform 51%, import 21%, tests 20%, worker 8%)
+

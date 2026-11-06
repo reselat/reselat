@@ -1,0 +1,7 @@
+import {requireEmployee} from '@/server/auth/session';
+import {authDatabase} from '@/server/db/client';
+import {lockAdmin} from '@/server/admin/members';
+import {auditSummary} from '@/server/admin/audit-summary';
+import {adminError} from '@/server/admin/errors';
+export const dynamic='force-dynamic';
+export async function GET(request:Request){try{const {employee}=await requireEmployee(true);const offset=Math.max(0,Math.min(100000,Number(new URL(request.url).searchParams.get('offset'))||0));const rows=await (await authDatabase()).begin(async tx=>{await lockAdmin(tx,employee);return tx`select a.id::text,a.action,a.created_at as "createdAt",coalesce(actor.display_name,'历史成员') as "actorName",coalesce(subject.display_name,'历史成员') as "subjectName" from trade_private.audit_events a left join trade_private.employees actor on actor.company_id=a.company_id and actor.user_id=a.actor_id left join trade_private.employees subject on subject.company_id=a.company_id and subject.user_id=a.subject_id where a.company_id=${employee.companyId} and a.action in ('employee.create','employee.update','employee.archive','employee.restore','bootstrap.admin') order by a.created_at desc,a.id desc limit 51 offset ${offset}`;});return Response.json({events:rows.slice(0,50).map(row=>({...row,action:undefined,summary:auditSummary(row.action)})),hasMore:rows.length>50},{headers:{'cache-control':'no-store'}});}catch(e){return adminError(e);}}

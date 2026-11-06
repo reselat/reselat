@@ -1,0 +1,8 @@
+import {it,expect} from 'vitest';
+import {defaultAiPreferences,usdToMicros,microsToUsd} from '@/modules/settings/ai-schema';
+import {applyAiPreferences,aiEnvironment} from '@/server/ai/settings';
+const config={key:'SYNTHETIC',model:'deepseek-flash',inputPrice:1n,outputPrice:1n,dailyBudget:100n,dailyCalls:5};
+it('never raises the deployment budget or daily call ceiling',()=>{const result=applyAiPreferences(config,{...defaultAiPreferences,enabled:true,dailyBudgetMicros:'200',dailyCalls:100},'refund_precheck');expect(result.dailyBudget).toBe(100n);expect(result.dailyCalls).toBe(5);expect(()=>applyAiPreferences(config,defaultAiPreferences,'order_risk')).toThrow('AI_DISABLED');});
+it('refuses a different model until the server pricing is reviewed',()=>{expect(()=>applyAiPreferences(config,{...defaultAiPreferences,enabled:true,model:'deepseek-v4-pro',dailyBudgetMicros:'10'},'refund_precheck')).toThrow('AI_MODEL_REVIEW_REQUIRED');});
+it('handles USD limits as exact integers without floating point',()=>{expect(usdToMicros('0.000001')).toBe('1');expect(usdToMicros('12.345678')).toBe('12345678');expect(microsToUsd('12345678')).toBe('12.345678');for(const value of ['-1','1e3','0.0000001','Infinity'])expect(()=>usdToMicros(value)).toThrow();});
+it('returns configuration booleans and numeric caps, never environment secrets',()=>{const summary=aiEnvironment({DEEPSEEK_API_KEY:'PRIVATE_SYNTHETIC',DEEPSEEK_RISK_ENABLED:'false',DEEPSEEK_DAILY_BUDGET_USD_MICROS:'0'});expect(summary.ready).toBe(false);expect(summary.keyConfigured).toBe(true);expect(JSON.stringify(summary)).not.toContain('PRIVATE_SYNTHETIC');});

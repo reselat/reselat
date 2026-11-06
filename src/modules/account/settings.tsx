@@ -1,0 +1,26 @@
+'use client';
+import {useEffect,useState} from 'react';
+import Link from 'next/link';
+import {z} from 'zod';
+import {browserAuth} from './client';
+import {AuthenticatorSettings} from './settings-mfa';
+import './settings.css';
+const profileDTO=z.object({name:z.string(),phone:z.string(),email:z.string(),pendingEmail:z.string()});
+export function AccountSettings(){
+ const [profile,setProfile]=useState<z.infer<typeof profileDTO>>(),[error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
+ useEffect(()=>{const controller=new AbortController();fetch('/api/account/profile',{signal:controller.signal,cache:'no-store'}).then(async r=>{if(!r.ok)throw new Error('账号资料读取失败，请重新登录。');return profileDTO.parse(await r.json());}).then(setProfile).catch(e=>{if(!controller.signal.aborted)setError(e.message);});return()=>controller.abort();},[]);
+ async function submit(event:React.FormEvent<HTMLFormElement>,kind:'profile'|'password'|'email'|'emailVerify'){
+  event.preventDefault();if(busy)return;const form=event.currentTarget,fields=new FormData(form),auth=browserAuth();setBusy(true);setError('');setMessage('');
+  try{
+   if(kind==='profile'){const r=await fetch('/api/account/profile',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({name:fields.get('name'),phone:fields.get('phone')})});if(!r.ok)throw new Error('保存未完成，请重新读取核对姓名和联系电话后重试。');setMessage('姓名和联系电话已保存。联系电话仅用于联系，不用于短信登录。');}
+   if(kind==='password'){const password=String(fields.get('password'));if(password!==fields.get('confirm'))throw new Error('两次新密码不一致。');const {error}=await auth.auth.updateUser({password,current_password:String(fields.get('current')),nonce:String(fields.get('nonce'))||undefined});if(error)throw new Error(error.code==='reauthentication_needed'?'请先点击发送安全验证码，再填写邮件中的验证码。':'密码修改失败，请检查当前密码、安全验证码及密码强度。');setMessage('密码已修改。建议退出其他设备后重新登录。');form.reset();}
+   if(kind==='email'){const email=String(fields.get('email'));const {error}=await auth.auth.updateUser({email});if(error)throw new Error('邮箱变更未提交，请检查地址、验证状态或邮件服务配置。');setProfile(p=>p?{...p,pendingEmail:email}:p);setMessage('变更请求已提交，确认完成前登录邮箱不变。请按新旧邮箱收到的邮件完成确认，或在下方输入邮件验证码。');form.reset();}
+   if(kind==='emailVerify'){const {error}=await auth.auth.verifyOtp({email:String(fields.get('email')),token:String(fields.get('token')),type:'email_change'});if(error)throw new Error('邮箱确认失败，请检查邮件对应的邮箱、验证码及有效期。');setMessage('该邮箱已确认；若另一邮箱也收到确认邮件，请继续完成确认。刷新页面可核对最终登录邮箱。');form.reset();}
+  }catch(e){setError(e instanceof Error?e.message:'操作未完成。');}finally{for(const name of ['current','password','confirm','nonce','token']){const input=form.elements.namedItem(name);if(input instanceof HTMLInputElement)input.value='';}setBusy(false);}
+ }
+ return <div className="account-settings">{error&&<p className="form-error" role="alert">{error}</p>}{message&&<p role="status">{message}</p>}{!profile?<p>正在读取账号资料…</p>:<>
+ <section><h2>基本信息</h2><p>当前登录邮箱：{profile.email}</p>{profile.pendingEmail&&<p>待确认邮箱：{profile.pendingEmail}</p>}<form onSubmit={e=>submit(e,'profile')}><fieldset disabled={busy} className="form-grid"><label>姓名<input name="name" defaultValue={profile.name} required maxLength={80} autoComplete="name"/></label><label>联系电话<input name="phone" type="tel" defaultValue={profile.phone} maxLength={40} autoComplete="tel"/></label></fieldset><button className="button primary" disabled={busy}>保存基本信息</button></form></section>
+ <section><h2>修改登录密码</h2><form onSubmit={e=>submit(e,'password')}><fieldset className="form-grid" disabled={busy}><label>当前密码<input name="current" type="password" required autoComplete="current-password" maxLength={256}/></label><label>新密码<input name="password" type="password" required minLength={12} maxLength={128} autoComplete="new-password"/></label><label>确认新密码<input name="confirm" type="password" required minLength={12} maxLength={128} autoComplete="new-password"/></label><label>安全验证码（服务要求时填写）<input name="nonce" autoComplete="one-time-code" maxLength={128}/></label></fieldset><button className="button" disabled={busy} type="button" onClick={async()=>{setBusy(true);setError('');try{const {error}=await browserAuth().auth.reauthenticate();if(error)throw error;setMessage('安全验证码已发送，请检查账号邮箱。');}catch{setError('安全验证码发送失败，请稍后重试或检查邮件服务。');}finally{setBusy(false);}}}>发送安全验证码</button> <button className="button primary" disabled={busy}>修改密码</button></form></section>
+ <section><h2>更改登录邮箱</h2><p>需完成邮件确认；不会直接覆盖已验证的登录邮箱。未收到邮件时请检查邮件服务配置。</p><form onSubmit={e=>submit(e,'email')}><fieldset className="form-grid" disabled={busy}><label>新邮箱<input name="email" type="email" required maxLength={254} autoComplete="email"/></label></fieldset><button className="button" disabled={busy}>发送邮箱变更确认</button></form><details><summary>使用邮件验证码确认</summary><form onSubmit={e=>submit(e,'emailVerify')}><fieldset className="form-grid" disabled={busy}><label>收到该验证码的邮箱<input name="email" type="email" required maxLength={254}/></label><label>邮件验证码<input name="token" required autoComplete="one-time-code" maxLength={128}/></label></fieldset><button className="button" disabled={busy}>确认邮箱</button></form></details></section>
+ <AuthenticatorSettings/><p><Link href="/account/mfa">验证当前设备</Link></p></> }</div>;
+}

@@ -1,0 +1,3 @@
+{"manifest":".next/server/app/admin/page.js.nft.json","asset":"assets/certificates/supabase-prod-ca-2021.crt","included":true}
+{"manifest":".next/server/app/api/workspace/records/route.js.nft.json","asset":"assets/certificates/supabase-prod-ca-2021.crt","included":true}
+{"manifest":".next/server/app/api/demo/documents/route.js.nft.json","asset":"assets/fonts/NotoSansSC-Regular.otf","included":true}

@@ -1,0 +1,24 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/member-audit.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/member-audit.test.ts [ tests/member-audit.test.ts ]
+Error: Cannot find module '../src/server/admin/audit-summary' imported from /Volumes/数据/开发项目/外贸工作站/tests/member-audit.test.ts
+ ❯ tests/member-audit.test.ts:2:1
+      1| import {it,expect} from 'vitest';
+      2| import {auditSummary} from '../src/server/admin/audit-summary';
+       | ^
+      3| it('shows a fixed action summary without exposing original details',()…
+      4|  expect(auditSummary('employee.update',{password:'PRIVATE',role:'admin…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  13:18:28
+   Duration  54ms (worker 96%, environment 4%)
+

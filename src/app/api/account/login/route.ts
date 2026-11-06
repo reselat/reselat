@@ -1,0 +1,6 @@
+import {z} from 'zod';
+import {authClient} from '@/server/auth/supabase';
+import {sameOrigin,accountError} from '@/server/auth/http';
+import {limitedLogin,LoginLimitError} from '@/server/auth/login-limit';
+import {bodyOf} from '@/server/business/http';
+export async function POST(request:Request){try{sameOrigin(request);const input=await bodyOf(request,z.object({email:z.email().max(254),password:z.string().min(1).max(256)}).strict());const result=await limitedLogin(request,input.email,async()=>{const auth=await authClient(10000);const {error}=await auth.auth.signInWithPassword(input);return {ok:!error,status:error?.status??200};});const status=result.ok?200:result.status===429?429:result.status>=500?503:401;return Response.json(result.ok?{ok:true}:{code:status===429?'LOGIN_LIMIT':status===503?'LOGIN_UNAVAILABLE':'LOGIN_FAILED',message:status===429?'登录尝试过多，请稍后重试。':status===503?'登录暂不可用，请稍后重试。':'邮箱或密码错误，或账号暂不可登录。'},{status,headers:{'cache-control':'no-store',...(status===429?{'retry-after':'60'}:{})}});}catch(e){if(e instanceof LoginLimitError)return Response.json({code:e.status===429?'LOGIN_LIMIT':'LOGIN_UNAVAILABLE'},{status:e.status,headers:{'cache-control':'no-store',...(e.retryAfter?{'retry-after':String(e.retryAfter)}:{})}});return accountError(e);}}

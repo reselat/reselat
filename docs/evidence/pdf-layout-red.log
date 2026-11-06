@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Volumes/数据/开发项目/外贸工作站/scripts/check-pdf-layout.py", line 9, in <module>
+    assert disclaimer['bottom']+4 <= table_rect['top'], (name,page.page_number,'header overlaps table',disclaimer['bottom'],table_rect['top'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('pi-1', 1, 'header overlaps table', 134.08799799999997, 127.0)

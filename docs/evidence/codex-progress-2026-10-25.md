@@ -1,0 +1,215 @@
+# Codex 夜间进度监控 · 2026-10-25
+
+> 回滚方法: `git log --oneline` 查看快照提交 → `git reset --hard <hash>` 回到该时间点(或用 `git checkout <hash> -- <file>` 只回滚单个文件)。
+> 生成本文件的脚本: `scripts/codex-progress-monitor.mjs`;每次巡检追加一节,并同时产生一个 git 提交。
+
+## 00:06 巡检
+- **会话**: `01a16e90` 新事件 108 条:turn开始 0/完成 0/中断 0
+- **turn 状态**: 01a16e90=inProgress, 01a16e94=completed
+- **上下文占用(最近一次请求)**: 200,705 / 475,000 (42%)
+- **用量限额**: 5 小时窗口 25%(重置于 04:37) · 7 天窗口 35%
+- **Codex 执行的命令**:
+  - `ego-browser nodejs -e 'const task=await taskSpace(\"trade-workstation-online-test\"); console.log({spaceId:task.spaceId}); console.log(await task.page(\"p1\").s`
+  - `node --input-type=module -e 'import {statSync} from \"node:fs\"; console.log({fontBytes:statSync(\"assets/fonts/NotoSansSC-Regular.otf\").size});'`
+  - `npm view vercel version`
+  - `ego-browser nodejs -e 'const task=await takeOverTaskSpace(4); const page=task.page(\"p1\"); console.log(await page.url()); console.log(await page.snapshot());'`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel --version`
+  - `ego-browser nodejs -e 'const task=await taskSpace(4); const page=task.page(\"p1\"); await page.click(\"@87\",{label:\"configure test environment\"}); console.lo`
+  - `ego-browser nodejs -e 'const task=await taskSpace(4); const page=task.page(\"p1\"); const fs=await import(\"node:fs/promises\"); const util=await import(\"node:`
+  - `ego-browser nodejs -e 'const task=await taskSpace(4);const page=task.page(\"p1\"); const valid=await page.evaluate(()=>{const keys=[...document.querySelectorAll`
+  - `ego-browser nodejs -e 'const task=await taskSpace(4); const page=task.page(\"p1\"); await page.click(\"text=\\\"Config\\\"\",{label:\"select public config type\`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel login`
+- **Codex 修改的文件**: `/private/tmp/trade-vercel-secret-config.mjs`, `.vercelignore`, `/private/tmp/trade-vercel-db-probe.mjs`
+- **Codex 最新回复**: "双库环境变量已导入测试项目，正在完成源码上传所需的 CLI 认证，并核对服务端密钥的保存类型。测试站会保留现有账号和 MFA；部署完成后，我会检查访问地址、未登录接口拒绝和双库连接情况。" "源码上传清单已核对，本机密钥、测试样本和开发文档均已排除，三项服务端配置已确认为不可回读的 Secret。现在正在验证事务连接池，随后创建测试站部署；如果连接池不适配，会保留已验证的会话连接方式和现有权限。" "测试站已在 Vercel 构建成功，地址已分配为 `https://trade-workstation-test.vercel.app`。我正在检查线上页面和鉴权接口；本机对 6543 的连接探针超时，尚不能据此判断云端连接是否可用，会继续以线上结果核验。"
+- **本次巡检前的工作区变更**: 3 个文件
+  - `.gitignore`
+  - `.vercelignore`
+  - `docs/evidence/codex-progress-latest.md`
+- **快照**: 本次巡检的工作区与日志已一并提交到本地 git(提交信息含巡检时间)
+
+## 08:06 巡检
+- **会话**: `01a16e90` 新事件 83 条:turn开始 0/完成 0/中断 0;`01a16e94` 新事件 7 条:turn开始 1/完成 1/中断 0
+- **turn 状态**: 01a16e94=completed, 01a16e90=inProgress
+- **上下文占用(最近一次请求)**: 133,764 / 475,000 (28%)
+- **用量限额**: 5 小时窗口 5%(重置于 12:58) · 7 天窗口 37%
+- **Codex 执行的命令**:
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel curl 'https://trade-workstation-test.vercel.app/api/workspace/records?kind=customer' --scope olivers-projects-c`
+  - `ego-browser nodejs -e 'const task=await takeOverTaskSpace(4);const page=task.page(\"p2\");console.log({url:await page.url()});const results=[];for(const path of`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel logs --deployment dpl_Bzf7W97VAxBSCY18ShA95ySFYPiT --query 'level:error' --since 10m --limit 20 --scope olivers`
+  - `cat .env.example; cat src/server/db/client.ts; cat src/server/auth/supabase.ts; cat src/modules/account/login.tsx; cat src/modules/account/client.ts`
+  - `npm test > docs/evidence/2026-10-25-online-tests.log 2>&1`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel deploy --prod --yes --project prj_oFhHpXdAH3ZLaehqqff2qiiLkOA9 --scope olivers-projects-cfd775b2 --no-wait`
+  - `ego-browser nodejs -e 'const task=await taskSpace(4);const page=task.page(\"p2\");const r=await page.fetch(\"/api/workspace/records?kind=customer\",{timeout:200`
+  - `node --input-type=module -e 'import {readFileSync} from \"node:fs\";const raw=readFileSync(\"/private/tmp/trade-vercel-diagnostic-errors.jsonl\",\"utf8\");const`
+  - `ego-browser nodejs -e 'const task=await taskSpace(4);const page=task.page(\"p2\");await page.goto(\"https://trade-workstation-test.vercel.app/workspace\");conso`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel inspect dpl_3YF6fU8oE19dGz9NPSCBg7fP1LAU --scope olivers-projects-cfd775b2`
+- **Codex 修改的文件**: `tests/database-diagnostics.test.ts`, `src/server/db/diagnostics.ts`, `src/app/api/workspace/records/route.ts`, `/private/tmp/trade-vercel-record-probe.mjs`, `docs/evidence/2026-10-25-online-test-deployment.md`, `PROJECT_CONTEXT.md`
+- **Codex 最新回复**: "收到，这次刷新已经复现了错误。我会读取这次新请求的安全诊断码，继续定位原因。" "新日志仍只显示未分类错误，尚未给出具体数据库错误码。我已补充标准错误码识别；为避免让你反复手动刷新，已请求重新打开测试站自动复测。 [浏览器技能](/Users/oliver/.agents/skills/ego-browser/SKILL.md)要求：“Never use a new TaskSpace to recover from a stuck, blocked, timed-out, or unexpected Page.” " "追加只读复核通过，未发现敏感信息泄漏或鉴权行为改变。 - 日志仅含固定事件名、位置、随机 UUID、白名单错误码和错误类型；不包含异常消息、堆栈、SQL、参数、邮箱或凭据。 - GET／POST 仅在原有 `catch` 增加诊断，登录、MFA、来源检查、角色及公司范围校验保持原样。 - 客户端仍通过 `accountError` 接收固定错误响应。 限制：本次为静态复核，未复跑测试。两种请求目前都标为 `records.request"
+- **完成回合收尾**: "追加只读复核通过，未发现敏感信息泄漏或鉴权行为改变。 - 日志仅含固定事件名、位置、随机 UUID、白名单错误码和错误类型；不包含异常消息、堆栈、SQL、参数、邮箱或凭据。 - GET／POST 仅在原有 `catch` 增加诊断，登录、MFA、来源检查、角色及公司范围校验保持原样。 - 客户端仍通过 `accountError` 接收固定错误响应。 限制：本次为静态复核，未复跑测试。两种请求目前"
+- **本次巡检前的工作区变更**: 12 个文件
+  - `PROJECT_CONTEXT.md`
+  - `docs/evidence/codex-progress-latest.md`
+  - `src/app/api/workspace/records/route.ts`
+  - `docs/evidence/2026-10-25-diagnostics-green.log`
+  - `docs/evidence/2026-10-25-diagnostics-red.log`
+  - `docs/evidence/2026-10-25-online-build.log`
+  - `docs/evidence/2026-10-25-online-lint.log`
+  - `docs/evidence/2026-10-25-online-test-deployment.md`
+  - `docs/evidence/2026-10-25-online-tests.log`
+  - `docs/evidence/2026-10-25-online-typecheck.log`
+  - `src/server/db/diagnostics.ts`
+  - `tests/database-diagnostics.test.ts`
+- **测试/构建证据变化**:
+  - `docs/evidence/2026-10-25-diagnostics-green.log`: Tests  6 passed (6) | Test Files  3 passed (3)
+  - `docs/evidence/2026-10-25-diagnostics-red.log`: Test Files  1 failed (1)
+  - `docs/evidence/2026-10-25-online-build.log`: ✓ Compiled successfully in 2.1s
+  - `docs/evidence/2026-10-25-online-tests.log`: Tests  172 passed (172) | Test Files  53 passed (53)
+- **快照**: 本次巡检的工作区与日志已一并提交到本地 git(提交信息含巡检时间)
+
+## 08:36 巡检
+- **会话**: `01a16e90` 新事件 68 条:turn开始 0/完成 0/中断 0;`01a16e94` 新事件 6 条:turn开始 1/完成 1/中断 0
+- **turn 状态**: 01a16e94=completed, 01a16e90=inProgress
+- **上下文占用(最近一次请求)**: 138,850 / 475,000 (29%)
+- **用量限额**: 5 小时窗口 19%(重置于 12:58) · 7 天窗口 39%
+- **Codex 执行的命令**:
+  - `node --input-type=module -e 'import {readFileSync} from \"node:fs\";for(const line of readFileSync(\"/private/tmp/trade-vercel-fresh-errors.jsonl\",\"utf8\").sp`
+  - `ego-browser nodejs -e 'const task=await taskSpace(5);const page=task.page(\"p1\");const r=await page.fetch(\"/api/workspace/records?kind=customer\",{timeout:200`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel logs --project prj_oFhHpXdAH3ZLaehqqff2qiiLkOA9 --query 'database.request.failed' --since 1h --limit 20 --scope`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel logs --project prj_oFhHpXdAH3ZLaehqqff2qiiLkOA9 --query 'database.request.failed' --since 30m --limit 20 --scop`
+  - `wc -c .next/server/app/api/workspace/records/route.js; rg -l 'record\\.update|database.request.failed' .next/server/chunks .next/server/app/api/workspace/record`
+  - `ego-browser nodejs -e 'const task=await taskSpace(5);const page=task.page(\"p1\");const r=await page.fetch(\"/api/workspace/records?kind=customer\",{timeout:150`
+  - `npm exec --yes --package=vercel@65.2.0 -- vercel logs --project prj_oFhHpXdAH3ZLaehqqff2qiiLkOA9 --query 'database.request.failed' --since 30m --limit 5 --scope`
+  - `node --input-type=module -e 'import {readFileSync} from \"node:fs\";const s=readFileSync(\".next/server/app/api/workspace/records/route.js\",\"utf8\");const sta`
+  - `rg -n '\\(await (businessDatabase|authDatabase)\\(\\)\\)' src; rg -n 'export (async )?function minify|function minify|exports.minify' node_modules/next/dist/bui`
+  - `sed -n '1272,1294p' node_modules/next/dist/build/swc/index.js; sed -n '20,35p' node_modules/next/dist/build/swc/index.d.ts; rg -n 'minify\\(' node_modules/next/`
+- **Codex 修改的文件**: `src/server/db/diagnostics.ts`, `tests/database-diagnostics.test.ts`, `tests/production-records.test.ts`
+- **Codex 最新回复**: "修复已通过回归测试：实际接口代码经过当前生产压缩器处理后，读取返回正常；原来的写法会稳定复现 400。全量 176 项测试、构建和类型检查均通过，独立复核也已通过。正在等待修复版构建完成，随后直接验证线上客户和产品读取。" "线上复测已通过：共享客户、共享产品和成员接口都返回 200，读取失败已修复，账号和权限不需要调整。测试站地址不变。 目前共享版可测试成员管理、客户和产品资料；订单、采购、出运、收付款等完整共享业务仍需继续开发接入。" "只读复核未发现需修复的问题。 - 三处查询改为先获取 `db`、再调用 SQL tag，避开了已复现的 SWC 压缩问题；原鉴权、SQL 参数和字段投影保持不变。 - 新回归测试读取实际 GET 源码，经当前 Next SWC 转换与压缩后执行，同时检查正常读取与供应商越权拒绝，能够覆盖此次生产编译缺陷。 - 诊断只输出受限 SQLSTATE／驱动码、固定错误分类及限定构建路径的行列号，不输出原始异常、调用函数名、SQL 或业务正文。 "
+- **完成回合收尾**: "只读复核未发现需修复的问题。 - 三处查询改为先获取 `db`、再调用 SQL tag，避开了已复现的 SWC 压缩问题；原鉴权、SQL 参数和字段投影保持不变。 - 新回归测试读取实际 GET 源码，经当前 Next SWC 转换与压缩后执行，同时检查正常读取与供应商越权拒绝，能够覆盖此次生产编译缺陷。 - 诊断只输出受限 SQLSTATE／驱动码、固定错误分类及限定构建路径的行列号，不输出原始"
+- **本次巡检前的工作区变更**: 7 个文件
+  - `docs/evidence/.codex-monitor-state.json`
+  - `docs/evidence/codex-progress-latest.md`
+  - `src/app/api/workspace/records/route.ts`
+  - `src/server/business/records.ts`
+  - `src/server/db/diagnostics.ts`
+  - `tests/database-diagnostics.test.ts`
+  - `tests/production-records.test.ts`
+- **快照**: 本次巡检的工作区与日志已一并提交到本地 git(提交信息含巡检时间)
+
+## 08:51 巡检
+- **会话**: `01a16e90` 新事件 42 条:turn开始 1/完成 1/中断 0
+- **turn 状态**: 01a16e90=inProgress, 01a16e94=completed
+- **上下文占用(最近一次请求)**: 332,371 / 475,000 (70%)
+- **用量限额**: 5 小时窗口 35%(重置于 12:58) · 7 天窗口 42%
+- **Codex 执行的命令**:
+  - `cat /Volumes/数据/开发项目/files/AGENTS.md; tail -65 PROJECT_CONTEXT.md; cat docs/evidence/2026-10-24-complete-shared-workstation.md; cat package.json; git status --s`
+  - `cat docs/superpowers/plans/2026-10-24-complete-shared-workstation.md; cat src/modules/workspace/model.ts; cat src/server/business/{commands,records,access,http}`
+  - `sed -n '1,52p' src/modules/workspace/model.ts; cat src/domain/{money,decimal,quantities,precision}.ts; sed -n '1,95p' src/templates/trade.tsx; cat src/modules/w`
+  - `npm run typecheck`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/server/business/order-data.ts');s=p.read_text();s=s.replace('snapshot:z.record(z.string(),z.unknown())','s`
+  - `node --input-type=module -e 'import {readFileSync} from \"node:fs\";console.log(JSON.parse(readFileSync(\"node_modules/fflate/package.json\",\"utf8\")).version)`
+- **Codex 修改的文件**: `docs/evidence/2026-10-25-online-test-deployment.md`, `PROJECT_CONTEXT.md`, `README.md`, `docs/setup/Supabase与Vercel部署.md`, `docs/evidence/2026-10-24-complete-shared-workstation.md`, `tests/business/workflow.test.ts`, `scripts/sql/shared-sales-orders.sql`, `scripts/sql/shared-procurement.sql`, `scripts/sql/shared-shipments.sql`, `scripts/sql/shared-payments.sql`, `src/modules/business/order-schema.ts`, `src/server/business/order-data.ts`, `src/server/business/orders.ts`, `src/server/business/customers.ts`, `src/server/business/purchases.ts`
+- **用户消息**: "接通所有的功能"
+- **Codex 最新回复**: "我会继续按已确认的完整共享系统方案，把主档、客户跟进与移交、订单、采购到货、分批出运、收付款、正式单据、附件签章和退税资料包接入线上工作台。先核对现有代码和数据库迁移，再逐项实现与验证；需要新增云端表、私有桶或依赖时，会在具体改动准备好后集中处理。" "这轮继续使用 Supabase、Postgres 和 Vercel 的相关技能。实现仍保持身份库与业务库分离，并把数量占用、收付款、单据版本和审计放在业务库事务中；不会将整份浏览器数据同步到数据库来代替多人业务。" "已开始补共享业务链路：数据库结构将分别保存订单版本、采购行、到货来源、出运分配和收付款事件。确认、取消、移交和冲销都会保留历史记录；测试也会覆盖超量、重复请求、旧版本和越权操作。"
+- **完成回合收尾**: "业务入口：[进入业务工作台](https://trade-workstation-test.vercel.app/workspace)。 客户、产品“读取失败”已修复，线上验证通过，使用原账号即可测试。 **目前上线的是阶段测试版**：成员管理、共享客户和产品可用；订单、采购、出运、收付款等完整共享业务尚未接通。"
+- **本次巡检前的工作区变更**: 19 个文件
+  - `PROJECT_CONTEXT.md`
+  - `README.md`
+  - `docs/evidence/2026-10-24-complete-shared-workstation.md`
+  - `docs/evidence/2026-10-25-online-test-deployment.md`
+  - `docs/evidence/codex-progress-latest.md`
+  - `"docs/setup/Supabase\344\270\216Vercel\351\203\250\347\275\262.md"`
+  - `docs/architecture/2026-10-25-zip-dependency.md`
+  - `scripts/sql/shared-payments.sql`
+  - `scripts/sql/shared-procurement.sql`
+  - `scripts/sql/shared-sales-orders.sql`
+  - `scripts/sql/shared-shipments.sql`
+  - `src/modules/business/order-schema.ts`
+  - `src/server/business/customers.ts`
+  - `src/server/business/order-data.ts`
+  - `src/server/business/orders.ts`
+  - `src/server/business/payments.ts`
+  - `src/server/business/purchases.ts`
+  - `src/server/business/shipments.ts`
+  - `tests/business/workflow.test.ts`
+- **快照**: 本次巡检的工作区与日志已一并提交到本地 git(提交信息含巡检时间)
+
+## 09:06 巡检
+- **会话**: `01a16e90` 新事件 40 条:turn开始 0/完成 0/中断 0
+- **turn 状态**: 01a16e90=inProgress, 01a16e94=completed
+- **上下文占用(最近一次请求)**: 386,541 / 475,000 (81%)
+- **用量限额**: 5 小时窗口 49%(重置于 12:58) · 7 天窗口 44%
+- **Codex 执行的命令**:
+  - `python3 - <<'PY' from pathlib import Path p=Path('tests/business/files.test.ts');s=p.read_text();s=s.replace(\"const runtime=vi.hoisted(()=>({db:undefined as PG`
+  - `rg --files /Users/oliver/.codex -g mark_artifact_operation_started.mjs -g '!node_modules' -g '!logs' -g '!sessions'`
+  - `node /Users/oliver/.codex/plugins/cache/openai-primary-runtime/pdf/26.1022.11436/skills/pdf/container_tools/mark_artifact_operation_started.mjs --operation-kind`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/templates/trade.tsx');s=p.read_text();s=s.replace('Document,Page,Text,View,StyleSheet,renderToBuffer','Doc`
+  - `npm run typecheck`
+  - `cat /Users/oliver/.codex/plugins/cache/openai-curated-remote/vercel/0.54.1/skills/vercel-functions/SKILL.md; rg -n 'download\\(' node_modules/@supabase/storage-`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/server/refunds/refunds.ts');s=p.read_text().replace(\"mime='application/pdf';category='document';\",\"mime`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/server/refunds/refunds.ts');s=p.read_text().replace('const entries=[','const entries:{name:string;bytes:Ui`
+- **Codex 修改的文件**: `scripts/sql/private-business-files.sql`, `scripts/sql/shared-documents.sql`, `scripts/sql/controlled-signatures.sql`, `scripts/sql/refund-preparation.sql`, `tests/business/files.test.ts`, `src/server/files/validation.ts`, `src/server/files/storage.ts`, `src/server/files/files.ts`, `tests/helpers/full-business.ts`, `tests/business/documents.test.ts`, `src/server/documents/data.ts`, `src/server/business/customs.ts`, `src/server/documents/signatures.ts`, `src/server/documents/documents.ts`, `src/server/files/chunks.ts`
+- **Codex 最新回复**: "核心链路的本地集成测试已通过：建单确认、指派运营、采购、到货、两批出运、收款确认和冲销能够连起来执行，超采购、超到货、超出运和超收款均被拒绝。 附件上传也已加入失败恢复：上传结果不确定时保留核对状态，不标成已归档。接下来继续接正式单据、签章、退税资料包和工作台页面。" "正式单据已接入本地链路：确认时冻结来源数据，生成后保存固定 PDF，修改公司或产品资料不会改变旧文件；签章使用也绑定了员工、用途和具体单据版本。 另外按 Vercel Functions 的限制，大附件会分片上传，资料包下载使用流式响应，避免本地可用、上线后却因大小限制失败。"
+- **本次巡检前的工作区变更**: 26 个文件(仅列前 20)
+  - `docs/evidence/codex-progress-latest.md`
+  - `package-lock.json`
+  - `package.json`
+  - `scripts/sql/shared-sales-orders.sql`
+  - `src/server/auth/member-directory.ts`
+  - `src/server/business/customers.ts`
+  - `src/server/business/orders.ts`
+  - `src/server/business/purchases.ts`
+  - `src/server/business/records.ts`
+  - `src/templates/trade.tsx`
+  - `tests/business/workflow.test.ts`
+  - `scripts/sql/controlled-signatures.sql`
+  - `scripts/sql/private-business-files.sql`
+  - `scripts/sql/refund-preparation.sql`
+  - `scripts/sql/shared-documents.sql`
+  - `src/modules/business/refund-schema.ts`
+  - `src/server/business/customs.ts`
+  - `src/server/business/suppliers.ts`
+  - `src/server/documents/`
+  - `src/server/files/`
+- **快照**: 本次巡检的工作区与日志已一并提交到本地 git(提交信息含巡检时间)
+
+## 09:21 巡检
+- **会话**: `01a16e90` 新事件 36 条:turn开始 0/完成 0/中断 0;`01a16e94` 新事件 13 条:turn开始 1/完成 0/中断 0
+- **turn 状态**: 01a16e94=inProgress, 01a16e90=inProgress
+- **上下文占用(最近一次请求)**: 178,954 / 475,000 (38%)
+- **用量限额**: 5 小时窗口 68%(重置于 12:58) · 7 天窗口 47%
+- **Codex 执行的命令**:
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/server/business/overview.ts');s=p.read_text();start=s.index(' const scope=tx`');end=s.index('\ ',start);s=`
+  - `nl -ba src/server/business/overview.ts | sed -n '20,42p'; npm run typecheck`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/server/business/overview.ts');s=p.read_text().replace(\"actor.role<>'sales'\",\"actor.role!=='sales'\");p.`
+  - `cat src/app/layout.tsx; cat src/app/workspace/customers/page.tsx src/app/workspace/catalog/page.tsx; sed -n '1,45p' src/app/globals.css; npm run typecheck`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/modules/business/ui/client.ts');s=p.read_text();s=s.replace('query:Record<string,string>,schema:z.ZodType<`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/modules/business/ui/records.tsx');s=p.read_text().replace(\"payload={...Object.fromEntries(data),\", \"pay`
+  - `python3 - <<'PY' from pathlib import Path p=Path('src/modules/business/ui/order-documents.tsx');s=p.read_text().replace(\"resource.data.complete?'':'（草稿）'\", \"`
+  - `cat tests/separated-records.test.ts; cat tests/shared-records.test.ts; cat src/server/business/records.ts; sed -n '1,100p' tests/production-records.test.ts; npm`
+  - `rg --files src/server/business src/server/files src/server/documents src/server/refunds tests/business; cat scripts/sql/shared-sales-orders.sql scripts/sql/shar`
+  - `cat src/server/business/orders.ts src/server/business/order-data.ts src/server/business/purchases.ts src/server/business/shipments.ts src/server/business/paymen`
+- **Codex 修改的文件**: `src/server/business/overview.ts`, `src/app/api/workspace/business/route.ts`, `src/app/api/workspace/files/route.ts`, `src/modules/business/dto.ts`, `src/modules/business/ui/client.ts`, `src/modules/business/ui/shared.tsx`, `src/app/workspace/layout.tsx`, `src/app/workspace/workspace.css`, `src/modules/business/ui/record-picker.tsx`, `src/modules/business/ui/records.tsx`, `src/modules/business/ui/overview.tsx`, `src/modules/business/ui/upload.ts`, `src/modules/business/ui/signatures.tsx`, `src/modules/business/ui/orders.tsx`, `src/modules/business/ui/order-operations.tsx`
+- **Codex 最新回复**: "已批准的 ZIP 依赖变更已应用。退税目录、检查 PDF 和 ZIP 会关联已归档文件并核对摘要；缺件时会明确标成草稿，采购敏感文件也会按角色过滤。 现在开始把这些服务接到统一业务工作台，替换原先只有客户、产品链接的入口。" "统一工作台页面已写入，订单详情将作为业务主线，集中办理采购到货、出运装箱、收付款、合同单据、附件和退税资料。 我正在逐个核对页面按钮对应的真实接口，并补查失败路径。页面存在不算接通完成，确认、下载、冲销和文件归档都要实际验证。"
+- **本次巡检前的工作区变更**: 25 个文件(仅列前 20)
+  - `docs/evidence/codex-progress-latest.md`
+  - `src/app/layout.tsx`
+  - `src/app/workspace/catalog/page.tsx`
+  - `src/app/workspace/customers/page.tsx`
+  - `src/app/workspace/page.tsx`
+  - `src/modules/business/order-schema.ts`
+  - `src/server/business/orders.ts`
+  - `src/server/business/payments.ts`
+  - `src/app/api/workspace/business/`
+  - `src/app/api/workspace/files/`
+  - `src/app/workspace/audit/`
+  - `src/app/workspace/documents/`
+  - `src/app/workspace/layout.tsx`
+  - `src/app/workspace/orders/`
+  - `src/app/workspace/payments/`
+  - `src/app/workspace/purchases/`
+  - `src/app/workspace/refunds/`
+  - `src/app/workspace/settings/`
+  - `src/app/workspace/shipments/`
+  - `src/app/workspace/signatures/`
+- **快照**: 本次巡检的工作区与日志已一并提交到本地 git(提交信息含巡检时间)
+

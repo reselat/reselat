@@ -1,0 +1,24 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/database-role-setup.test.ts (1 test | 1 failed) 520ms
+   × formats the actual setup SQL with a bound password and enables only the dedicated role 519ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/database-role-setup.test.ts > formats the actual setup SQL with a bound password and enables only the dedicated role
+error: could not determine data type of parameter $1
+ ❯ pe.Oe node_modules/@electric-sql/pg-protocol/src/parser.ts:442:11
+ ❯ pe.tt node_modules/@electric-sql/pg-protocol/src/parser.ts:220:16
+ ❯ pe.parse node_modules/@electric-sql/pg-protocol/src/parser.ts:104:21
+ ❯ D.Ne node_modules/@electric-sql/pglite/src/pglite.ts:763:26
+ ❯ node_modules/@electric-sql/pglite/src/pglite.ts:716:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  12:51:13
+   Duration  632ms (tests 97%, import 2%, transform 1%)
+

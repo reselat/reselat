@@ -1,0 +1,13 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace/customs.test.ts tests/workspace/review-regressions.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  2 passed (2)
+      Tests  8 passed (8)
+   Start at  06:53:32
+   Duration  494ms (import 80%, transform 16%, tests 3%, worker 1%)
+

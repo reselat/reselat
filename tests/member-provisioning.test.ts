@@ -1,0 +1,14 @@
+import {it,expect,vi} from 'vitest';
+import {runProvision,type ProvisionStore,type ProvisionRecord} from '../src/server/admin/provision-flow';
+const request={requestId:'00000000-0000-4000-8000-000000000001',name:'Synthetic member',role:'sales' as const,email:'member@example.test',password:'Synthetic-password-123'};
+function setup(){let record:ProvisionRecord|undefined;const store:ProvisionStore={reserve:vi.fn(async()=>{if(record)return {fresh:false,record};record={id:request.requestId,name:request.name,role:request.role,state:'pending',userId:null};return {fresh:true,record};}),setUser:vi.fn(async(_id,userId)=>{if(record){record.userId=userId;record.state='auth_created';}}),finish:vi.fn(async()=>{if(record)record.state='completed';}),reject:vi.fn(async()=>{if(record)record.state='rejected';}),uncertain:vi.fn(async()=>{if(record)record.state='needs_reconciliation';})};return {store,get:()=>record};}
+it('never creates a second Auth account for repeated or simultaneous request IDs',async()=>{const {store}=setup();const create=vi.fn(async()=>({userId:'synthetic-uid'}));await Promise.all([runProvision(store,create,request),runProvision(store,create,request)]);expect(create).toHaveBeenCalledTimes(1);expect((await runProvision(store,create,request)).status).toBe('completed');});
+it('retains an Auth UID for recovery after association failure',async()=>{const {store,get}=setup();store.finish=vi.fn(async()=>{throw new Error('synthetic failure');});const result=await runProvision(store,async()=>({userId:'synthetic-uid'}),request);expect(result.status).toBe('needs_reconciliation');expect(get()?.userId).toBe('synthetic-uid');});
+it('does not retry an ambiguous Auth outcome or persist credential input',async()=>{const {store}=setup();const create=vi.fn(async()=>{throw new Error('synthetic upstream secret');});expect((await runProvision(store,create,request)).status).toBe('needs_reconciliation');await runProvision(store,create,request);expect(create).toHaveBeenCalledTimes(1);expect(JSON.stringify(vi.mocked(store.reserve).mock.calls)).not.toContain(request.password);expect(JSON.stringify(vi.mocked(store.reserve).mock.calls)).not.toContain(request.email);});
+
+it('distinguishes a definite Auth rejection from an unknown result',async()=>{const {store,get}=setup();expect((await runProvision(store,async()=>{throw new Error('CREATE_REJECTED');},request)).status).toBe('rejected');expect(get()?.state).toBe('rejected');});
+it('returns only the whitelisted reason for the current rejected request',async()=>{
+ const {AuthCreateRejected}=await import('../src/server/admin/auth-create-errors');const {store}=setup();
+ const result=await runProvision(store,async()=>{throw new AuthCreateRejected('PASSWORD_REQUIREMENTS');},request);
+ expect(result).toMatchObject({status:'rejected',errorCode:'PASSWORD_REQUIREMENTS'});expect(JSON.stringify(result)).not.toContain(request.email);expect(JSON.stringify(result)).not.toContain(request.password);
+});

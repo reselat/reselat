@@ -1,0 +1,168 @@
+[p1 "航单 · 外贸工作台" | space "外贸业务闭环修订-20261023"(5): 1 managed, 0 untracked — p1* "航单 · 外贸工作台"]
+root
+  container
+    container
+      anchor [ref=42, url=http://127.0.0.1:3000/demo]
+        text "航"
+        container
+          text "航单"
+          text "外贸工作台"
+      container
+        text "示例外贸公司"
+        text "⌄"
+      container "主导航"
+        paragraph
+          text "日常业务"
+        anchor [ref=43, url=http://127.0.0.1:3000/demo]
+          text "◫"
+          text "我的工作台"
+        anchor [ref=44, url=http://127.0.0.1:3000/demo/customers]
+          text "◎"
+          text "客户与跟进"
+        anchor [ref=45, loc=href:/demo/orders, url=http://127.0.0.1:3000/demo/orders]
+          text "▤"
+          text "销售订单"
+        anchor [ref=46, url=http://127.0.0.1:3000/demo/catalog]
+          text "▦"
+          text "产品资料"
+        anchor [ref=47, loc=href:/demo/suppliers, url=http://127.0.0.1:3000/demo/suppliers]
+          text "◧"
+          text "供应商"
+        anchor [ref=48, url=http://127.0.0.1:3000/demo/finance]
+          text "¥"
+          text "财务与收付款"
+        anchor [ref=49, url=http://127.0.0.1:3000/demo/refunds]
+          text "▣"
+          text "出口退税资料"
+        anchor [ref=50, url=http://127.0.0.1:3000/demo/settings]
+          text "⚙"
+          text "公司与单据设置"
+      container
+        text "本机试用环境"
+        paragraph
+          text "仅供测试 · 本机浏览器保存"
+        container
+          text "演"
+          container
+            text "业务演示"
+            text "未连接真实账号"
+    container
+      container
+        text "内部业务工作空间"
+        container
+          text "本机试用"
+          text "2026 年 10 月 23 日"
+      container
+        container
+          container
+            text "工作空间 / 我的工作台"
+            heading
+              text "订单、资金和单据，一起跟进。"
+            paragraph
+              text "首页余额来自实际录入的订单和收款登记。"
+          anchor [ref=69, url=http://127.0.0.1:3000/demo/orders/new]
+            text "＋ 新建订单"
+        text "本机试用：资料保存在当前浏览器，刷新保留，不会同步给其他员工。请只输入测试资料；正式业务需接入受控数据库。"
+        container
+          container
+            text "订单总数"
+            text "1"
+            text "已录入销售订单"
+          container
+            text "未收齐订单"
+            text "1"
+            text "包括未收款与部分收款"
+          container
+            text "已逾期订单"
+            text "1"
+            text "仅统计付款到期日前已到期的未收余额"
+          container
+            text "已生成单据"
+            text "1"
+            text "按生成时快照保存"
+        container
+          container
+            heading
+              text "未收款金额 · 按币种"
+            anchor [ref=70, url=http://127.0.0.1:3000/demo/finance]
+              text "财务与收付款"
+          container
+            container
+              text "USD"
+              text "应收未收"
+            container
+              text "USD"
+              text "8750.00"
+            container
+              text "其中已逾期："
+              container
+                text "USD"
+                text "8750.00"
+        container
+          container
+            container
+              heading
+                text "需要催收的订单"
+              paragraph
+                text "未到期余额也显示；已逾期单独标记。"
+            anchor [ref=71, url=http://127.0.0.1:3000/demo/finance]
+              text "登记收款"
+          table
+            table_row
+              table_cell
+                text "订单 / 客户"
+              table_cell
+                text "付款到期日"
+              table_cell
+                text "订单金额"
+              table_cell
+                text "已收"
+              table_cell
+                text "未收金额"
+              table_cell
+                text "状态"
+              table_cell
+            table_row
+              table_cell
+                anchor [ref=72, url=http://127.0.0.1:3000/demo/orders/2fbc949e-c61d-4e83-b7bd-65da1a25b39e]
+                  text "SO-20261001-0001"
+                text "Northstar Trading (FICTIONAL)"
+              table_cell
+                text "2026-10-20"
+              table_cell
+                text "USD"
+                text "12500.00"
+              table_cell
+                text "USD"
+                text "3750.00"
+              table_cell
+                text "USD"
+                text "8750.00"
+              table_cell
+                text "已逾期"
+              table_cell
+                anchor [ref=73, url=http://127.0.0.1:3000/demo/orders/2fbc949e-c61d-4e83-b7bd-65da1a25b39e]
+                  text "查看订单"
+        container
+          heading
+            text "资料准备"
+          anchor [ref=74, url=http://127.0.0.1:3000/demo/refunds]
+            text "退税资料清单"
+          paragraph
+            text "按订单检查出口合同、采购凭证、报关和运输资料。"
+          paragraph
+            text "资料索引不等于正式文件已归档，也不代表退税资格。"
+        container
+          heading
+            text "开始一笔业务"
+          anchor [ref=75, url=http://127.0.0.1:3000/demo/customers]
+            text "维护客户"
+          anchor [ref=76, url=http://127.0.0.1:3000/demo/catalog]
+            text "维护产品"
+          anchor [ref=77, url=http://127.0.0.1:3000/demo/settings]
+            text "设置公司抬头"
+          anchor [ref=78, url=http://127.0.0.1:3000/demo/orders/new]
+            text "创建订单与采购单"
+      text "本机试用版 · 数据仅保存在当前浏览器，尚未连接员工登录与共享数据库"
+  alert
+    text "订单、资金和单据，一起跟进。"

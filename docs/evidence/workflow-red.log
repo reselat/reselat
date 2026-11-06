@@ -1,0 +1,135 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/workspace
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/workspace/operations.test.ts (10 tests | 9 failed) 3ms
+   ❯ input to document and payment workflow (10)
+     × creates sales and explicit purchase orders from maintained parties/products 1ms
+     × does not silently rewrite order snapshots when master data changes 0ms
+     × records partial receipts, prevents overpayment and preserves currency separation 0ms
+     × does not double count duplicate receipt commands or bank references 0ms
+     × keeps reversal history and recalculates outstanding amounts 0ms
+     × groups dashboard balances by currency and detects overdue unpaid orders 0ms
+     × requires a recorded shipment for CI/PL and rejects shipment over-allocation 0ms
+     × generates PI from actual input and stores an immutable version 0ms
+     × renders purchase documents in the purchase currency without mixing sales prices 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > creates sales and explicit purchase orders from maintained parties/products
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:7:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > does not silently rewrite order snapshots when master data changes
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:12:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > records partial receipts, prevents overpayment and preserves currency separation
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:21:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > does not double count duplicate receipt commands or bank references
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:27:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > keeps reversal history and recalculates outstanding amounts
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:32:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > groups dashboard balances by currency and detects overdue unpaid orders
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:36:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > requires a recorded shipment for CI/PL and rejects shipment over-allocation
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:40:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > generates PI from actual input and stores an immutable version
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:47:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  tests/workspace/operations.test.ts > input to document and payment workflow > renders purchase documents in the purchase currency without mixing sales prices
+Error: NOT_IMPLEMENTED
+ ❯ createOrder src/modules/workspace/operations.ts:2:111
+      1| import type {Workspace,OrderInput,PaymentInput,ShipmentInput,DocumentT…
+      2| export function createOrder(s:Workspace,input:OrderInput,id:string):Wo…
+       |                                                                                                               ^
+      3| export function recordPayment(s:Workspace,input:PaymentInput,id:string…
+      4| export function voidPayment(s:Workspace,id:string,reason:string):Works…
+ ❯ tests/workspace/operations.test.ts:52:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 1 passed (10)
+   Start at  14:42:57
+   Duration  92ms (transform 62%, import 21%, tests 11%, worker 6%)
+

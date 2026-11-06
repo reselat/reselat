@@ -1,0 +1,13 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/shared-records.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  07:18:10
+   Duration  53ms (transform 60%, import 22%, tests 10%, worker 8%)
+

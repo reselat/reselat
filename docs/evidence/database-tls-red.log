@@ -1,0 +1,24 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/database-tls.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/database-tls.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/database-tls.test.ts [ tests/database-tls.test.ts ]
+Error: Cannot find module '../scripts/database-tls' imported from /Volumes/数据/开发项目/外贸工作站/tests/database-tls.test.ts
+ ❯ tests/database-tls.test.ts:3:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  09:15:34
+   Duration  56ms (worker 95%, environment 5%)
+

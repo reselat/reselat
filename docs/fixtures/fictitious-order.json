@@ -1,0 +1,19 @@
+{
+  "classification": "FICTIONAL_ONLY",
+  "companyId": "00000000-0000-4000-8000-000000000001",
+  "salesOrderId": "00000000-0000-4000-8000-000000000002",
+  "salesLineId": "00000000-0000-4000-8000-000000000003",
+  "currency": "USD",
+  "currencyScale": 2,
+  "quantity": "1000",
+  "unitPrice": "12.50",
+  "amountMinor": "1250000",
+  "purchases": [
+    {"supplier": "示例供应商甲", "quantity": "600", "acceptedQuantity": "600"},
+    {"supplier": "示例供应商乙", "quantity": "400", "acceptedQuantity": "0"}
+  ],
+  "shipmentPlans": [
+    {"quantity": "600", "packages": 30, "piecesPerPackage": 20, "reserved": false},
+    {"quantity": "400", "packages": 20, "piecesPerPackage": 20, "reserved": false}
+  ]
+}

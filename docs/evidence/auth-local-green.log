@@ -1,0 +1,13 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/auth-live.test.ts tests/auth-database.test.ts tests/shared-records.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+
+ Test Files  3 passed (3)
+      Tests  7 passed (7)
+   Start at  07:19:11
+   Duration  1.06s (tests 89%, import 9%, transform 1%)
+

@@ -1,0 +1,26 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/separated-setup.test.ts (6 tests | 1 failed) 41ms
+   × removes a definitely rolled-back owned temp but never an unknown or pre-existing file 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/separated-setup.test.ts > removes a definitely rolled-back owned temp but never an unknown or pre-existing file
+TypeError: cleanupOwnedSetupTemp is not a function
+ ❯ tests/separated-setup.test.ts:31:8
+     29|  const {cleanupOwnedSetupTemp}=await import('../scripts/separated-setu…
+     30|  const unlink=async()=>{calls.push('removed');};
+     31|  await cleanupOwnedSetupTemp({code:'42501'},'configure_role',false,tru…
+       |        ^
+     32|  expect(calls).toEqual(['removed']);calls.length=0;
+     33|  await cleanupOwnedSetupTemp({code:'ECONNRESET'},'configure_role',fals…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  14:01:20
+   Duration  93ms (tests 77%, transform 14%, import 6%, worker 2%)
+

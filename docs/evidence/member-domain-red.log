@@ -1,0 +1,25 @@
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/member-management.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/member-management.test.ts [ tests/member-management.test.ts ]
+Error: Cannot find module '../src/server/admin/member-domain' imported from /Volumes/数据/开发项目/外贸工作站/tests/member-management.test.ts
+ ❯ tests/member-management.test.ts:4:1
+      2| import {PGlite} from '@electric-sql/pglite';
+      3| import {readFile} from 'node:fs/promises';
+      4| import {parseMemberChange,memberPatch} from '../src/server/admin/membe…
+       | ^
+      5| const id='00000000-0000-4000-8000-000000000001';
+      6| it('validates explicit actions and rejects enabling an archived member…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  13:16:05
+   Duration  61ms (worker 96%, environment 4%)
+

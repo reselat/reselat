@@ -1,0 +1,1 @@
+export const themeBootstrap="var p='system';try{var t=localStorage.getItem('siliantai-theme');if(t==='light'||t==='dark')p=t}catch(e){}document.documentElement.dataset.themePreference=p;document.documentElement.dataset.theme=p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p";

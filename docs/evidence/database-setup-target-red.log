@@ -1,0 +1,24 @@
+
+> trade-workstation@0.1.0 test
+> vitest run tests/database-setup-target.test.ts
+
+
+ RUN  v5.0.5 /Volumes/数据/开发项目/外贸工作站
+
+ ❯ tests/database-setup-target.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/database-setup-target.test.ts [ tests/database-setup-target.test.ts ]
+Error: Cannot find module '../scripts/database-setup-target' imported from /Volumes/数据/开发项目/外贸工作站/tests/database-setup-target.test.ts
+ ❯ tests/database-setup-target.test.ts:2:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  08:49:22
+   Duration  54ms (worker 96%, environment 4%)
+
